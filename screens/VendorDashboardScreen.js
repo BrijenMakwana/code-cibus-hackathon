@@ -10,11 +10,17 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { AntDesign, Entypo } from "@expo/vector-icons";
+import FoodDishVendor from "../components/FoodDishVendor";
 
 const VendorDashboardScreen = () => {
   const [showModal, setShowModal] = useState(false);
   return (
     <SafeAreaView style={styles.container}>
+      {/* list of food dishes */}
+      <FoodDishVendor />
+      <FoodDishVendor />
+      <FoodDishVendor />
+
       {/* fab button */}
       <Pressable style={styles.fab} onPress={() => setShowModal(true)}>
         <AntDesign name="plus" size={24} color="black" />
