@@ -1,9 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
+import VendorSignInScreen from "./screens/VendorSignInScreen";
 
 export default function App() {
-  return <HomeScreen />;
+  return <VendorSignInScreen />;
 }
 
 const styles = StyleSheet.create({
