@@ -7,13 +7,16 @@ import {
   Text,
   TextInput,
   View,
+  Image,
 } from "react-native";
 import React, { useState } from "react";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import FoodDishVendor from "../components/FoodDishVendor";
 
 const VendorDashboardScreen = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showAddModal, setAddShowModal] = useState(false);
+  const [showQRModal, setShowQRModal] = useState(false);
+
   return (
     <SafeAreaView style={styles.container}>
       {/* list of food dishes */}
@@ -22,21 +25,21 @@ const VendorDashboardScreen = () => {
       <FoodDishVendor />
 
       {/* fab button */}
-      <Pressable style={styles.fab} onPress={() => setShowModal(true)}>
+      <Pressable style={styles.fab} onPress={() => setAddShowModal(true)}>
         <AntDesign name="plus" size={24} color="black" />
       </Pressable>
 
       {/* QR code generate button */}
-      <Pressable style={styles.qrButton}>
+      <Pressable style={styles.qrButton} onPress={() => setShowQRModal(true)}>
         <AntDesign name="qrcode" size={30} color="black" />
         <Text style={styles.qrButtonText}>generate QR code</Text>
       </Pressable>
 
-      {/* modal */}
-      <Modal visible={showModal}>
+      {/* add food dish modal */}
+      <Modal visible={showAddModal} animationType="slide">
         <SafeAreaView>
           {/* close button */}
-          <Pressable onPress={() => setShowModal(false)}>
+          <Pressable onPress={() => setAddShowModal(false)}>
             <Entypo
               name="circle-with-cross"
               size={30}
@@ -58,6 +61,37 @@ const VendorDashboardScreen = () => {
             <Button title="Cancel" />
             <Button title="Add" />
           </View>
+        </SafeAreaView>
+      </Modal>
+
+      {/* QR code modal */}
+      <Modal visible={showQRModal} animationType="slide">
+        <SafeAreaView style={styles.qrModal}>
+          {/* close button */}
+          <Pressable onPress={() => setShowQRModal(false)}>
+            <Entypo
+              name="circle-with-cross"
+              size={30}
+              color="red"
+              style={styles.close}
+            />
+          </Pressable>
+          {/* heading */}
+          <Text style={styles.heading}>congratulations!!</Text>
+          {/* QR */}
+          <Image
+            source={require("../assets/images/create-qr-code.png")}
+            style={styles.qrImage}
+          />
+          {/* download text */}
+          <Text style={styles.readyText}>
+            Your QR code is ready, You can download it from here.
+          </Text>
+
+          {/* download button */}
+          <Pressable style={styles.downloadBtn}>
+            <Text style={styles.downloadText}>download</Text>
+          </Pressable>
         </SafeAreaView>
       </Modal>
     </SafeAreaView>
@@ -117,5 +151,38 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     marginTop: 10,
+  },
+  qrModal: {
+    // alignItems: "center",
+  },
+  heading: {
+    fontSize: 40,
+    alignSelf: "center",
+  },
+  qrImage: {
+    width: 300,
+    height: 300,
+    marginTop: 30,
+    alignSelf: "center",
+  },
+  readyText: {
+    fontSize: 20,
+    marginTop: 20,
+    marginHorizontal: 20,
+    textAlign: "center",
+  },
+  downloadBtn: {
+    backgroundColor: "#FF8787",
+    padding: 20,
+    borderRadius: 15,
+    marginTop: 20,
+    width: 140,
+    alignSelf: "center",
+  },
+  downloadText: {
+    fontSize: 20,
+    color: "#fff",
+    fontWeight: "600",
+    textTransform: "capitalize",
   },
 });
