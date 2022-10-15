@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     padding: 15,
     alignItems: "center",
     borderBottomWidth: 1,
+    borderBottomColor: "gray",
   },
   dishContainer: {
     flexDirection: "row",
