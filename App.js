@@ -13,15 +13,42 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="VendorSignIn" component={VendorSignInScreen} />
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: "#FF8787",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      >
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: "Cibus" }}
+        />
+        <Stack.Screen
+          name="VendorSignIn"
+          component={VendorSignInScreen}
+          options={{ title: "Sign In" }}
+        />
         <Stack.Screen
           name="VendorDashboard"
           component={VendorDashboardScreen}
+          options={{ title: "Vendor Dashboard" }}
         />
-        <Stack.Screen name="QRScan" component={QRScanScreen} />
-        <Stack.Screen name="Menu" component={MenuScreen} />
+        <Stack.Screen
+          name="QRScan"
+          component={QRScanScreen}
+          options={{ title: "Scan" }}
+        />
+        <Stack.Screen
+          name="Menu"
+          component={MenuScreen}
+          options={{ title: "Menu" }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
