@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
   dishName: {
     flex: 1,
     fontSize: 18,
+    textTransform: "capitalize",
   },
   price: {
     fontSize: 18,

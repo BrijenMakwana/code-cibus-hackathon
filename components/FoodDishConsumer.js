@@ -1,13 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const FoodDishConsumer = () => {
+const FoodDishConsumer = (props) => {
+  const { dishName, price } = props;
   return (
     <View style={styles.container}>
       {/* dish name */}
-      <Text style={styles.dishName}>Burger</Text>
+      <Text style={styles.dishName}>{dishName}</Text>
       {/* price */}
-      <Text style={styles.price}>Rs. 70</Text>
+      <Text style={styles.price}>Rs. {price}</Text>
     </View>
   );
 };
@@ -29,6 +30,7 @@ const styles = StyleSheet.create({
   dishName: {
     flex: 1,
     fontSize: 18,
+    textTransform: "capitalize",
   },
   price: {
     fontSize: 18,

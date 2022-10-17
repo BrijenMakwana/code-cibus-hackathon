@@ -33,7 +33,7 @@ export default function App() {
           name="VendorSignIn"
           component={VendorSignInScreen}
           options={{ title: "Sign In" }}
-        /> */}
+        />
         <Stack.Screen
           name="VendorDashboard"
           component={VendorDashboardScreen}
@@ -43,7 +43,7 @@ export default function App() {
           name="QRScan"
           component={QRScanScreen}
           options={{ title: "Scan" }}
-        />
+        /> */}
         <Stack.Screen
           name="Menu"
           component={MenuScreen}
