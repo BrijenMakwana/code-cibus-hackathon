@@ -2,13 +2,18 @@ import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import FoodDishConsumer from "../components/FoodDishConsumer";
 import { db, collection, getDocs } from "../firebase/index";
+import { useRoute } from "@react-navigation/native";
 
 const MenuScreen = () => {
   const [foodMenu, setFoodMenu] = useState([]);
+  const route = useRoute();
+  const [collectionName, setCollectionName] = useState(
+    route.params.collectionName
+  );
 
   // get food menu
   const getMenu = async () => {
-    const querySnapshot = await getDocs(collection(db, "brijenma@gmail.com"));
+    const querySnapshot = await getDocs(collection(db, collectionName));
     setFoodMenu(
       querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );

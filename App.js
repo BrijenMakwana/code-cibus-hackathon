@@ -24,7 +24,7 @@ export default function App() {
           },
         }}
       >
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Home"
           component={HomeScreen}
           options={{ title: "Cibus" }}
@@ -43,7 +43,7 @@ export default function App() {
           name="QRScan"
           component={QRScanScreen}
           options={{ title: "Scan" }}
-        /> */}
+        />
         <Stack.Screen
           name="Menu"
           component={MenuScreen}

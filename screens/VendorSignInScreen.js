@@ -7,10 +7,14 @@ import {
   View,
 } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const VendorSignInScreen = () => {
+  const navigation = useNavigation();
   // sign in with google
-  const signInWithGoogle = () => {};
+  const signInWithGoogle = () => {
+    navigation.navigate("VendorDashboard");
+  };
   return (
     <SafeAreaView style={styles.container}>
       {/* app name */}
