@@ -1,7 +1,16 @@
-import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React from "react";
 
 const VendorSignInScreen = () => {
+  // sign in with google
+  const signInWithGoogle = () => {};
   return (
     <SafeAreaView style={styles.container}>
       {/* app name */}
@@ -14,10 +23,12 @@ const VendorSignInScreen = () => {
 
       {/* sign in with google button */}
       <Text style={styles.signInText}>sign in with google</Text>
-      <Image
-        source={require("../assets/images/google.png")}
-        style={styles.image}
-      />
+      <Pressable onPress={signInWithGoogle}>
+        <Image
+          source={require("../assets/images/google.png")}
+          style={styles.image}
+        />
+      </Pressable>
     </SafeAreaView>
   );
 };

@@ -24,7 +24,7 @@ export default function App() {
           },
         }}
       >
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Home"
           component={HomeScreen}
           options={{ title: "Cibus" }}
@@ -33,7 +33,7 @@ export default function App() {
           name="VendorSignIn"
           component={VendorSignInScreen}
           options={{ title: "Sign In" }}
-        />
+        /> */}
         <Stack.Screen
           name="VendorDashboard"
           component={VendorDashboardScreen}

@@ -7,8 +7,20 @@ import {
   Image,
 } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
+  // go to vendor sign in screen
+  const goToVendorSignIn = () => {
+    navigation.navigate("VendorSignIn");
+  };
+
+  // go to QR scan screen
+  const goToQRScan = () => {
+    navigation.navigate("QRScan");
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       {/* app name */}
@@ -17,14 +29,14 @@ const HomeScreen = () => {
       {/* button container */}
       <View style={styles.btnContainer}>
         {/* vendor */}
-        <Pressable>
+        <Pressable onPress={goToVendorSignIn}>
           <Image
             source={require("../assets/images/food-stall.png")}
             style={styles.icon}
           />
         </Pressable>
         {/* consumer */}
-        <Pressable>
+        <Pressable onPress={goToQRScan}>
           <Image
             source={require("../assets/images/consumer.png")}
             style={styles.icon}

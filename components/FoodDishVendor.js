@@ -1,19 +1,27 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
+import { db, doc, deleteDoc } from "../firebase/index";
 
-const FoodDishVendor = () => {
+const FoodDishVendor = (props) => {
+  const { id, dishName, price, getMenu } = props;
+
+  // delete food dish
+  const deleteFoodDish = async () => {
+    await deleteDoc(doc(db, "brijenma@gmail.com", id));
+    getMenu();
+  };
   return (
     <View style={styles.container}>
       <View style={styles.dishContainer}>
         {/* dish name */}
-        <Text style={styles.dishName}>Burger</Text>
+        <Text style={styles.dishName}>{dishName}</Text>
         {/* price */}
-        <Text style={styles.price}>Rs. 70</Text>
+        <Text style={styles.price}>Rs. {price}</Text>
       </View>
 
       {/* delete button */}
-      <Pressable style={styles.deleteContainer}>
+      <Pressable style={styles.deleteContainer} onPress={deleteFoodDish}>
         <MaterialIcons name="delete" size={27} color="red" />
       </Pressable>
     </View>

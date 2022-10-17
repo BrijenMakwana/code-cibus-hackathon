@@ -8,21 +8,68 @@ import {
   TextInput,
   View,
   Image,
+  FlatList,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import FoodDishVendor from "../components/FoodDishVendor";
+import { db, collection, addDoc, docs, getDocs } from "../firebase/index";
 
 const VendorDashboardScreen = () => {
+  const [foodMenu, setFoodMenu] = useState([]);
+  const [dishName, setDishName] = useState("");
+  const [price, setPrice] = useState(0);
+
   const [showAddModal, setAddShowModal] = useState(false);
   const [showQRModal, setShowQRModal] = useState(false);
+
+  // add food dish to menu
+  const addFoodDish = async () => {
+    setAddShowModal(false);
+    try {
+      const docRef = await addDoc(collection(db, "brijenma@gmail.com"), {
+        dishName: dishName,
+        price: price,
+      });
+      console.log("Document written with ID: ", docRef.id);
+      getMenu();
+      setDishName("");
+      setPrice(0);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+
+  // get food menu
+  const getMenu = async () => {
+    const querySnapshot = await getDocs(collection(db, "brijenma@gmail.com"));
+
+    setFoodMenu(
+      querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    );
+  };
+
+  useEffect(() => {
+    getMenu();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       {/* list of food dishes */}
-      <FoodDishVendor />
-      <FoodDishVendor />
-      <FoodDishVendor />
+      {foodMenu && (
+        <FlatList
+          data={foodMenu}
+          renderItem={({ item }) => (
+            <FoodDishVendor
+              dishName={item.dishName}
+              price={item.price}
+              id={item.id}
+              getMenu={getMenu}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      )}
 
       {/* fab button */}
       <Pressable style={styles.fab} onPress={() => setAddShowModal(true)}>
@@ -49,17 +96,24 @@ const VendorDashboardScreen = () => {
           </Pressable>
 
           {/* inputs */}
-          <TextInput placeholder="dish name" style={styles.input} />
+          <TextInput
+            placeholder="dish name"
+            style={styles.input}
+            value={dishName}
+            onChangeText={(text) => setDishName(text)}
+          />
           <TextInput
             placeholder="price"
             keyboardType="decimal-pad"
             style={styles.input}
+            value={price}
+            onChangeText={(text) => setPrice(Number(text))}
           />
 
           {/* buttons */}
           <View style={styles.buttonContainer}>
-            <Button title="Cancel" />
-            <Button title="Add" />
+            <Button title="Cancel" onPress={() => setAddShowModal(false)} />
+            <Button title="Add" onPress={addFoodDish} />
           </View>
         </SafeAreaView>
       </Modal>
