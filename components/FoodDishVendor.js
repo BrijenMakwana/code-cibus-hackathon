@@ -20,6 +20,11 @@ const FoodDishVendor = (props) => {
         <Text style={styles.price}>Rs. {price}</Text>
       </View>
 
+      {/* edit button */}
+      <Pressable style={styles.deleteContainer}>
+        <MaterialIcons name="edit" size={24} color="gray" />
+      </Pressable>
+
       {/* delete button */}
       <Pressable style={styles.deleteContainer} onPress={deleteFoodDish}>
         <MaterialIcons name="delete" size={27} color="red" />
@@ -37,7 +42,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 15,
     alignItems: "center",
     borderBottomWidth: 1,
     borderBottomColor: "gray",
@@ -46,7 +50,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     flex: 1,
-    marginRight: 20,
+    padding: 15,
   },
   dishName: {
     flex: 1,
@@ -58,9 +62,10 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   deleteContainer: {
-    height: 30,
-    width: 30,
+    height: 50,
+    width: 40,
     justifyContent: "center",
     alignItems: "center",
+    marginLeft: 10,
   },
 });
