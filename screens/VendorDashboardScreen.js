@@ -15,11 +15,11 @@ import { AntDesign, Entypo } from "@expo/vector-icons";
 import FoodDishVendor from "../components/FoodDishVendor";
 import ViewShot from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
-import { db, collection, addDoc, docs, getDocs } from "../firebase/index";
-import { async } from "@firebase/util";
+import { db, collection, addDoc, docs, getDocs, auth } from "../firebase/index";
 
 const VendorDashboardScreen = () => {
   const [foodMenu, setFoodMenu] = useState([]);
+  const [colectionName, setCollectionName] = useState(auth.currentUser.email);
   const [dishName, setDishName] = useState("");
   const [price, setPrice] = useState(0);
   const ref = useRef();
@@ -32,7 +32,7 @@ const VendorDashboardScreen = () => {
   const addFoodDish = async () => {
     setAddShowModal(false);
     try {
-      const docRef = await addDoc(collection(db, "brijenma@gmail.com"), {
+      const docRef = await addDoc(collection(db, colectionName), {
         dishName: dishName,
         price: price,
       });
@@ -47,7 +47,7 @@ const VendorDashboardScreen = () => {
 
   // get food menu
   const getMenu = async () => {
-    const querySnapshot = await getDocs(collection(db, "brijenma@gmail.com"));
+    const querySnapshot = await getDocs(collection(db, colectionName));
 
     setFoodMenu(
       querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
@@ -85,6 +85,7 @@ const VendorDashboardScreen = () => {
           data={foodMenu}
           renderItem={({ item }) => (
             <FoodDishVendor
+              colectionName={colectionName}
               dishName={item.dishName}
               price={item.price}
               id={item.id}

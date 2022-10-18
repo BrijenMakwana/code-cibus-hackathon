@@ -27,7 +27,7 @@ const VendorSignInScreen = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user);
+
         if (user) {
           if (user.emailVerified) {
             navigation.reset({
@@ -38,7 +38,7 @@ const VendorSignInScreen = () => {
             storeUser(user);
           } else {
             alert(
-              "please veryfy your email address by clicking on the confirmation link sent to your registered email id"
+              "please verify your email address by clicking on the confirmation link sent to your registered email id"
             );
           }
         }

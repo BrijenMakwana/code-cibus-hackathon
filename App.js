@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Pressable } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import MenuScreen from "./screens/MenuScreen";
 import VendorDashboardScreen from "./screens/VendorDashboardScreen";
@@ -8,10 +8,35 @@ import QRScanScreen from "./screens/QRScanScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import VendorSignUpScreen from "./screens/VendorSignUpScreen";
+import { MaterialIcons } from "@expo/vector-icons";
+import { auth, signOut } from "./firebase/index";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const signOutUser = (navigation) => {
+    removeUserFromLocalStorage();
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Home" }],
+    });
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
+
+  const removeUserFromLocalStorage = async () => {
+    try {
+      await AsyncStorage.removeItem("logged_in_user");
+    } catch (e) {
+      // remove error
+    }
+  };
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -43,7 +68,14 @@ export default function App() {
         <Stack.Screen
           name="VendorDashboard"
           component={VendorDashboardScreen}
-          options={{ title: "Vendor Dashboard" }}
+          options={({ navigation }) => ({
+            title: "Vendor Dashboard",
+            headerRight: () => (
+              <Pressable onPress={() => signOutUser(navigation)}>
+                <MaterialIcons name="logout" size={24} color="#fff" />
+              </Pressable>
+            ),
+          })}
         />
         <Stack.Screen
           name="QRScan"

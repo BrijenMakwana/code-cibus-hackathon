@@ -8,6 +8,7 @@ const FoodDishVendor = (props) => {
     id,
     dishName,
     price,
+    colectionName,
     getMenu,
     // setAddShowModal,
     // editDishName,
@@ -18,7 +19,7 @@ const FoodDishVendor = (props) => {
 
   // delete food dish
   const deleteFoodDish = async () => {
-    await deleteDoc(doc(db, "brijenma@gmail.com", id));
+    await deleteDoc(doc(db, colectionName, id));
     getMenu();
   };
 
