@@ -65,6 +65,11 @@ const VendorDashboardScreen = () => {
               price={item.price}
               id={item.id}
               getMenu={getMenu}
+              setAddShowModal={setAddShowModal}
+              editDishName={dishName}
+              setDishName={setDishName}
+              editPrice={price}
+              setPrice={setPrice}
             />
           )}
           keyExtractor={(item) => item.id}
@@ -134,7 +139,9 @@ const VendorDashboardScreen = () => {
           <Text style={styles.heading}>congratulations!!</Text>
           {/* QR */}
           <Image
-            source={require("../assets/images/create-qr-code.png")}
+            source={{
+              uri: "https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=brijenma@gmail.com",
+            }}
             style={styles.qrImage}
           />
           {/* download text */}

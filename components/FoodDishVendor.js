@@ -1,16 +1,39 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
-import { db, doc, deleteDoc } from "../firebase/index";
+import { db, doc, deleteDoc, updateDoc } from "../firebase/index";
 
 const FoodDishVendor = (props) => {
-  const { id, dishName, price, getMenu } = props;
+  const {
+    id,
+    dishName,
+    price,
+    getMenu,
+    // setAddShowModal,
+    // editDishName,
+    // setDishName,
+    // editPrice,
+    // setPrice,
+  } = props;
 
   // delete food dish
   const deleteFoodDish = async () => {
     await deleteDoc(doc(db, "brijenma@gmail.com", id));
     getMenu();
   };
+
+  // edit food dish
+  // const editFoodDish = async () => {
+  //   setAddShowModal(true);
+  //   setDishName(dishName);
+  //   setPrice(Number(price));
+  //   const dishRef = doc(db, "brijenma@gmail.com", id);
+  //   await updateDoc(dishRef, {
+  //     dishName: editDishName,
+  //     price: editPrice,
+  //   });
+  // };
+
   return (
     <View style={styles.container}>
       <View style={styles.dishContainer}>
