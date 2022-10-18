@@ -7,26 +7,35 @@ import {
   Button,
   TextInput,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { auth, signInWithEmailAndPassword } from "../firebase/index";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const VendorSignInScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   // sign in with google
-  const signUp = () => {
+  const signIn = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        console.log(user);
         if (user) {
           if (user.emailVerified) {
             navigation.reset({
               index: 0,
               routes: [{ name: "VendorDashboard" }],
             });
+
+            storeUser(user);
           } else {
             alert(
               "please veryfy your email address by clicking on the confirmation link sent to your registered email id"
@@ -45,6 +54,31 @@ const VendorSignInScreen = () => {
   // go to register screen
   const goToSignUpScreen = () => {
     navigation.navigate("VendorSignUp");
+  };
+
+  // store user in local storage
+  const storeUser = async (user) => {
+    try {
+      await AsyncStorage.setItem("logged_in_user", user.email);
+    } catch (e) {
+      // saving error
+    }
+  };
+
+  // get user from local storage
+
+  const getUser = async () => {
+    try {
+      const user = await AsyncStorage.getItem("logged_in_user");
+      if (user !== null) {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "VendorDashboard" }],
+        });
+      }
+    } catch (e) {
+      // error reading value
+    }
   };
 
   return (
@@ -70,7 +104,7 @@ const VendorSignInScreen = () => {
         value={password}
         onChangeText={(text) => setPassword(text)}
       />
-      <Button title="sign In" onPress={signUp} />
+      <Button title="sign In" onPress={signIn} />
       <Button title="sign Up" onPress={goToSignUpScreen} />
     </SafeAreaView>
   );
