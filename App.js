@@ -7,6 +7,7 @@ import VendorSignInScreen from "./screens/VendorSignInScreen";
 import QRScanScreen from "./screens/QRScanScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import VendorSignUpScreen from "./screens/VendorSignUpScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +34,11 @@ export default function App() {
           name="VendorSignIn"
           component={VendorSignInScreen}
           options={{ title: "Sign In" }}
+        />
+        <Stack.Screen
+          name="VendorSignUp"
+          component={VendorSignUpScreen}
+          options={{ title: "Sign Up" }}
         />
         <Stack.Screen
           name="VendorDashboard"

@@ -1,28 +1,38 @@
 import {
-  SafeAreaView,
-  Image,
-  Pressable,
   StyleSheet,
   Text,
-  Button,
+  SafeAreaView,
   TextInput,
+  Button,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { auth, createUserWithEmailAndPassword } from "../firebase/index";
+import {
+  auth,
+  createUserWithEmailAndPassword,
+  signOut,
+} from "../firebase/index";
 
-const VendorSignInScreen = () => {
+const VendorSignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
-  // sign in with google
+
+  // sign up
   const signUp = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         if (user) {
-          navigation.navigate("VendorDashboard");
+          signOut(auth)
+            .then(() => {
+              // Sign-out successful.
+              navigation.goBack();
+            })
+            .catch((error) => {
+              // An error happened.
+            });
         }
         // ...
       })
@@ -32,12 +42,6 @@ const VendorSignInScreen = () => {
         alert(error.message);
       });
   };
-
-  // go to register screen
-  const goToSignUpScreen = () => {
-    navigation.navigate("VendorSignUp");
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       {/* app name */}
@@ -45,7 +49,7 @@ const VendorSignInScreen = () => {
 
       {/* instruction */}
       <Text style={styles.instruction}>
-        "Please sign in to create the food menu"
+        "Please sign up to create the food menu"
       </Text>
       {/* inputs */}
       <TextInput
@@ -61,13 +65,12 @@ const VendorSignInScreen = () => {
         value={password}
         onChangeText={(text) => setPassword(text)}
       />
-      <Button title="sign In" onPress={signUp} />
-      <Button title="sign Up" onPress={goToSignUpScreen} />
+      <Button title="sign up" onPress={signUp} />
     </SafeAreaView>
   );
 };
 
-export default VendorSignInScreen;
+export default VendorSignUpScreen;
 
 const styles = StyleSheet.create({
   container: {

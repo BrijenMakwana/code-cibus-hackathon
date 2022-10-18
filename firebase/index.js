@@ -10,6 +10,11 @@ import {
   deleteDoc,
   updateDoc,
 } from "firebase/firestore";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -23,7 +28,21 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
-export { db, collection, addDoc, getDocs, docs, doc, deleteDoc, updateDoc };
+export {
+  db,
+  collection,
+  addDoc,
+  getDocs,
+  docs,
+  doc,
+  deleteDoc,
+  updateDoc,
+  auth,
+  createUserWithEmailAndPassword,
+  signOut,
+};
