@@ -174,7 +174,7 @@ const VendorDashboardScreen = () => {
             >
               <Image
                 source={{
-                  uri: "https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=brijenma@gmail.com",
+                  uri: `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${colectionName}`,
                 }}
                 style={styles.qrImage}
               />
