@@ -10,15 +10,20 @@ import {
   Image,
   FlatList,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import FoodDishVendor from "../components/FoodDishVendor";
+import ViewShot from "react-native-view-shot";
+import * as MediaLibrary from "expo-media-library";
 import { db, collection, addDoc, docs, getDocs } from "../firebase/index";
+import { async } from "@firebase/util";
 
 const VendorDashboardScreen = () => {
   const [foodMenu, setFoodMenu] = useState([]);
   const [dishName, setDishName] = useState("");
   const [price, setPrice] = useState(0);
+  const ref = useRef();
+  const [qrCode, setQRCode] = useState(null);
 
   const [showAddModal, setAddShowModal] = useState(false);
   const [showQRModal, setShowQRModal] = useState(false);
@@ -47,6 +52,25 @@ const VendorDashboardScreen = () => {
     setFoodMenu(
       querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
+  };
+
+  const downloadQRCode = async () => {
+    ref.current.capture().then((uri) => {
+      console.log("do something with ", uri);
+      setQRCode(uri);
+    });
+    const { status } = await MediaLibrary.requestPermissionsAsync();
+    if (status === "granted") {
+      const asset = await MediaLibrary.createAssetAsync(qrCode);
+      MediaLibrary.createAlbumAsync("Cibus", asset)
+        .then(() => {
+          console.log("Album created!");
+          alert("QR code is downloaded. Check your gallary.");
+        })
+        .catch((error) => {
+          console.log("err", error);
+        });
+    }
   };
 
   useEffect(() => {
@@ -138,19 +162,31 @@ const VendorDashboardScreen = () => {
           {/* heading */}
           <Text style={styles.heading}>congratulations!!</Text>
           {/* QR */}
-          <Image
-            source={{
-              uri: "https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=brijenma@gmail.com",
-            }}
-            style={styles.qrImage}
-          />
+          <>
+            <ViewShot
+              ref={ref}
+              options={{
+                fileName: "Your-File-Name",
+                format: "jpg",
+                quality: 0.9,
+              }}
+            >
+              <Image
+                source={{
+                  uri: "https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=brijenma@gmail.com",
+                }}
+                style={styles.qrImage}
+              />
+            </ViewShot>
+          </>
+
           {/* download text */}
           <Text style={styles.readyText}>
             Your QR code is ready, You can download it from here.
           </Text>
 
           {/* download button */}
-          <Pressable style={styles.downloadBtn}>
+          <Pressable style={styles.downloadBtn} onPress={downloadQRCode}>
             <Text style={styles.downloadText}>download</Text>
           </Pressable>
         </SafeAreaView>
