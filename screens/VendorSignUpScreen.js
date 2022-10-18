@@ -11,6 +11,7 @@ import {
   auth,
   createUserWithEmailAndPassword,
   signOut,
+  sendEmailVerification,
 } from "../firebase/index";
 
 const VendorSignUpScreen = () => {
@@ -25,14 +26,18 @@ const VendorSignUpScreen = () => {
         // Signed in
         const user = userCredential.user;
         if (user) {
-          signOut(auth)
-            .then(() => {
-              // Sign-out successful.
-              navigation.goBack();
-            })
-            .catch((error) => {
-              // An error happened.
-            });
+          sendEmailVerification(auth.currentUser).then(() => {
+            // Email verification sent!
+            // ...
+            signOut(auth)
+              .then(() => {
+                // Sign-out successful.
+                navigation.goBack();
+              })
+              .catch((error) => {
+                // An error happened.
+              });
+          });
         }
         // ...
       })

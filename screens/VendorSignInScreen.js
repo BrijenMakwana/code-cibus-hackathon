@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { auth, createUserWithEmailAndPassword } from "../firebase/index";
+import { auth, signInWithEmailAndPassword } from "../firebase/index";
 
 const VendorSignInScreen = () => {
   const [email, setEmail] = useState("");
@@ -17,12 +17,21 @@ const VendorSignInScreen = () => {
   const navigation = useNavigation();
   // sign in with google
   const signUp = () => {
-    createUserWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         if (user) {
-          navigation.navigate("VendorDashboard");
+          if (user.emailVerified) {
+            navigation.reset({
+              index: 0,
+              routes: [{ name: "VendorDashboard" }],
+            });
+          } else {
+            alert(
+              "please veryfy your email address by clicking on the confirmation link sent to your registered email id"
+            );
+          }
         }
         // ...
       })
