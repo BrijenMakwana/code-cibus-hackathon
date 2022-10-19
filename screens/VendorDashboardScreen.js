@@ -16,6 +16,7 @@ import FoodDishVendor from "../components/FoodDishVendor";
 import ViewShot from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
 import { db, collection, addDoc, docs, getDocs, auth } from "../firebase/index";
+import colors from "../constants/colors";
 
 const VendorDashboardScreen = () => {
   const [foodMenu, setFoodMenu] = useState([]);
@@ -35,7 +36,6 @@ const VendorDashboardScreen = () => {
         dishName: dishName,
         price: price,
       });
-      console.log("Document written with ID: ", docRef.id);
       getMenu();
       setDishName("");
       setPrice(0);
@@ -79,33 +79,40 @@ const VendorDashboardScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* list of food dishes */}
-      {foodMenu && (
-        <FlatList
-          data={foodMenu}
-          renderItem={({ item }) => (
-            <FoodDishVendor
-              colectionName={colectionName}
-              dishName={item.dishName}
-              price={item.price}
-              id={item.id}
-              getMenu={getMenu}
-            />
-          )}
-          keyExtractor={(item) => item.id}
-        />
-      )}
+      {/* heading */}
+      <View style={styles.header}>
+        <Text style={styles.headingText}>Food Menu</Text>
+        <Text style={styles.totalDishes}>({foodMenu.length})</Text>
+      </View>
+      <View style={styles.listContainer}>
+        {/* list of food dishes */}
+        {foodMenu && (
+          <FlatList
+            data={foodMenu}
+            renderItem={({ item }) => (
+              <FoodDishVendor
+                colectionName={colectionName}
+                dishName={item.dishName}
+                price={item.price}
+                id={item.id}
+                getMenu={getMenu}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+          />
+        )}
 
-      {/* fab button */}
-      <Pressable style={styles.fab} onPress={() => setAddShowModal(true)}>
-        <AntDesign name="plus" size={24} color="black" />
-      </Pressable>
+        {/* fab button */}
+        <Pressable style={styles.fab} onPress={() => setAddShowModal(true)}>
+          <AntDesign name="plus" size={24} color={colors.font} />
+        </Pressable>
 
-      {/* QR code generate button */}
-      <Pressable style={styles.qrButton} onPress={() => setShowQRModal(true)}>
-        <AntDesign name="qrcode" size={30} color="black" />
-        <Text style={styles.qrButtonText}>generate QR code</Text>
-      </Pressable>
+        {/* QR code generate button */}
+        <Pressable style={styles.qrButton} onPress={() => setShowQRModal(true)}>
+          <AntDesign name="qrcode" size={30} color={colors.font} />
+          <Text style={styles.qrButtonText}>generate QR code</Text>
+        </Pressable>
+      </View>
 
       {/* add food dish modal */}
       <Modal visible={showAddModal} animationType="slide">
@@ -191,34 +198,62 @@ export default VendorDashboardScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.primary,
+  },
+  header: {
+    backgroundColor: colors.primary,
+    paddingBottom: 20,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  headingText: {
+    fontSize: 30,
+    color: colors.font,
+    marginLeft: 30,
+    fontWeight: "600",
+  },
+  totalDishes: {
+    fontSize: 40,
+    color: colors.secondary,
+    marginLeft: 10,
+    fontWeight: "600",
+  },
+  listContainer: {
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    backgroundColor: colors.background,
+    paddingTop: 10,
+    // paddingBottom: 80,
+    flex: 1,
   },
   fab: {
-    backgroundColor: "#FF8787",
+    backgroundColor: colors.secondary,
     width: 50,
     height: 50,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 25,
     position: "absolute",
-    bottom: 70,
+    bottom: 40,
     right: 50,
   },
   qrButton: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#FF8787",
+    backgroundColor: colors.secondary,
     width: 200,
     padding: 10,
     borderRadius: 10,
     position: "absolute",
-    bottom: 70,
+    bottom: 40,
     left: 50,
   },
   qrButtonText: {
     fontSize: 16,
     textTransform: "capitalize",
     marginLeft: 10,
+    color: colors.font,
   },
   close: {
     alignSelf: "flex-end",
@@ -260,7 +295,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   downloadBtn: {
-    backgroundColor: "#FF8787",
+    backgroundColor: colors.primary,
     padding: 20,
     borderRadius: 15,
     marginTop: 20,

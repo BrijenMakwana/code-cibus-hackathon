@@ -11,6 +11,7 @@ import {
 import React, { useState } from "react";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { db, doc, deleteDoc, updateDoc } from "../firebase/index";
+import colors from "../constants/colors";
 
 const FoodDishVendor = (props) => {
   const { id, dishName, price, colectionName, getMenu } = props;
@@ -45,18 +46,28 @@ const FoodDishVendor = (props) => {
         <Text style={styles.price}>Rs. {price}</Text>
       </View>
 
-      {/* edit button */}
-      <Pressable
-        style={styles.deleteContainer}
-        onPress={() => setAddShowModal(true)}
+      <View
+        style={{
+          flexDirection: "row",
+          backgroundColor: colors.third,
+          alignItems: "center",
+          borderTopRightRadius: 15,
+          borderBottomRightRadius: 15,
+        }}
       >
-        <MaterialIcons name="edit" size={24} color="gray" />
-      </Pressable>
+        {/* edit button */}
+        <Pressable
+          style={styles.deleteContainer}
+          onPress={() => setAddShowModal(true)}
+        >
+          <MaterialIcons name="edit" size={24} color="#EFEFEF" />
+        </Pressable>
 
-      {/* delete button */}
-      <Pressable style={styles.deleteContainer} onPress={deleteFoodDish}>
-        <MaterialIcons name="delete" size={27} color="red" />
-      </Pressable>
+        {/* delete button */}
+        <Pressable style={styles.deleteContainer} onPress={deleteFoodDish}>
+          <MaterialIcons name="delete" size={27} color="#3C4048" />
+        </Pressable>
+      </View>
 
       {/* edit food dish modal */}
       <Modal visible={showAddModal} animationType="slide">
@@ -101,18 +112,25 @@ const styles = StyleSheet.create({
   container: {
     width: "90%",
     alignSelf: "center",
-    marginTop: 15,
+    marginVertical: 10,
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
-    borderBottomWidth: 1,
-    borderBottomColor: "gray",
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    elevation: 3,
+    shadowOffset: {
+      height: 5,
+      width: 5,
+    },
+    borderRadius: 15,
   },
   dishContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
     flex: 1,
-    padding: 15,
+    padding: 20,
   },
   dishName: {
     flex: 1,

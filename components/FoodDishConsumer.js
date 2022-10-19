@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import color from "../constants/colors";
+import colors from "../constants/colors";
 
 const FoodDishConsumer = (props) => {
   const { dishName, price } = props;
@@ -7,6 +9,7 @@ const FoodDishConsumer = (props) => {
     <View style={styles.container}>
       {/* dish name */}
       <Text style={styles.dishName}>{dishName}</Text>
+
       {/* price */}
       <Text style={styles.price}>Rs. {price}</Text>
     </View>
@@ -22,19 +25,30 @@ const styles = StyleSheet.create({
     marginTop: 15,
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 15,
     alignItems: "center",
-    borderBottomWidth: 1,
-    borderBottomColor: "gray",
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    elevation: 3,
+    shadowOffset: {
+      height: 5,
+      width: 5,
+    },
+    borderRadius: 15,
+    marginVertical: 10,
+    padding: 15,
   },
   dishName: {
     flex: 1,
     fontSize: 18,
     textTransform: "capitalize",
+    fontWeight: "500",
   },
   price: {
     fontSize: 18,
-    fontWeight: "600",
+    fontWeight: "bold",
+    width: 80,
+    color: colors.primary,
   },
   deleteContainer: {
     height: 30,

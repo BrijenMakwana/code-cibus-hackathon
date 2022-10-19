@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import FoodDishConsumer from "../components/FoodDishConsumer";
 import { db, collection, getDocs } from "../firebase/index";
 import { useRoute } from "@react-navigation/native";
+import colors from "../constants/colors";
 
 const MenuScreen = () => {
   const [foodMenu, setFoodMenu] = useState([]);
@@ -25,15 +26,22 @@ const MenuScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {foodMenu && (
-        <FlatList
-          data={foodMenu}
-          renderItem={({ item }) => (
-            <FoodDishConsumer dishName={item.dishName} price={item.price} />
-          )}
-          keyExtractor={(item) => item.id}
-        />
-      )}
+      {/* heading */}
+      <View style={styles.header}>
+        <Text style={styles.headingText}>Food Menu</Text>
+        <Text style={styles.totalDishes}>({foodMenu.length})</Text>
+      </View>
+      <View style={styles.listContainer}>
+        {foodMenu && (
+          <FlatList
+            data={foodMenu}
+            renderItem={({ item }) => (
+              <FoodDishConsumer dishName={item.dishName} price={item.price} />
+            )}
+            keyExtractor={(item) => item.id}
+          />
+        )}
+      </View>
     </SafeAreaView>
   );
 };
@@ -42,7 +50,32 @@ export default MenuScreen;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.primary,
+    flex: 1,
+  },
+  header: {
+    backgroundColor: colors.primary,
+    paddingBottom: 20,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  headingText: {
+    fontSize: 30,
+    color: colors.font,
+    marginLeft: 30,
+    fontWeight: "600",
+  },
+  totalDishes: {
+    fontSize: 40,
+    color: colors.secondary,
+    marginLeft: 10,
+    fontWeight: "600",
+  },
+  listContainer: {
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    backgroundColor: colors.background,
+    paddingTop: 10,
     flex: 1,
   },
 });

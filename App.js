@@ -11,6 +11,7 @@ import VendorSignUpScreen from "./screens/VendorSignUpScreen";
 import { MaterialIcons } from "@expo/vector-icons";
 import { auth, signOut } from "./firebase/index";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import colors from "./constants/colors";
 
 const Stack = createNativeStackNavigator();
 
@@ -42,9 +43,9 @@ export default function App() {
       <Stack.Navigator
         screenOptions={{
           headerStyle: {
-            backgroundColor: "#FF8787",
+            backgroundColor: colors.primary,
           },
-          headerTintColor: "#fff",
+          headerTintColor: "#000",
           headerTitleStyle: {
             fontWeight: "bold",
           },
@@ -69,7 +70,9 @@ export default function App() {
           name="VendorDashboard"
           component={VendorDashboardScreen}
           options={({ navigation }) => ({
-            title: "Vendor Dashboard",
+            title: null,
+            headerShadowVisible: false,
+            // headerShown: false,
             headerRight: () => (
               <Pressable onPress={() => signOutUser(navigation)}>
                 <MaterialIcons name="logout" size={24} color="#fff" />
@@ -85,7 +88,7 @@ export default function App() {
         <Stack.Screen
           name="Menu"
           component={MenuScreen}
-          options={{ title: "Menu" }}
+          options={{ title: null, headerShadowVisible: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -95,7 +98,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.background,
     alignItems: "center",
     justifyContent: "center",
   },
