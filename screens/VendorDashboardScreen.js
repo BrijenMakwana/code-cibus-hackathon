@@ -23,7 +23,6 @@ const VendorDashboardScreen = () => {
   const [dishName, setDishName] = useState("");
   const [price, setPrice] = useState(0);
   const ref = useRef();
-  const [qrCode, setQRCode] = useState(null);
 
   const [showAddModal, setAddShowModal] = useState(false);
   const [showQRModal, setShowQRModal] = useState(false);
@@ -64,19 +63,22 @@ const VendorDashboardScreen = () => {
 
   // download QR code
   const downloadQRCode = async () => {
-    takeScreenShot();
-    const { status } = await MediaLibrary.requestPermissionsAsync();
-    if (status === "granted") {
-      const asset = await MediaLibrary.createAssetAsync(qrCode);
-      MediaLibrary.createAlbumAsync("Cibus", asset)
-        .then(() => {
-          console.log("Album created!");
-          alert("QR code is downloaded. Check your gallary.");
-        })
-        .catch((error) => {
-          console.log("err", error);
-        });
-    }
+    await ref.current.capture().then(async (uri) => {
+      console.log("do something with ", uri);
+      const { status } = await MediaLibrary.requestPermissionsAsync();
+      console.log(status, "status");
+      if (status === "granted") {
+        const asset = await MediaLibrary.createAssetAsync(uri);
+        MediaLibrary.createAlbumAsync("Cibus", asset)
+          .then(() => {
+            console.log("Album created!");
+            alert("QR code is downloaded. Check your gallary.");
+          })
+          .catch((error) => {
+            console.log("err", error);
+          });
+      }
+    });
   };
 
   useEffect(() => {
