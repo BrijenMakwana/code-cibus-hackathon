@@ -54,7 +54,7 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ title: "Cibus" }}
+          options={{ title: "Cibus", headerShown: false }}
         />
         <Stack.Screen
           name="VendorSignIn"

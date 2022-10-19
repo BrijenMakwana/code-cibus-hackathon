@@ -9,6 +9,7 @@ import {
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import colors from "../constants/colors";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -43,23 +44,31 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       {/* app name */}
-      <Text style={styles.heading}>Cibus</Text>
+      <Image
+        source={require("../assets/images/foodora.png")}
+        style={styles.logo}
+      />
+
+      {/* i'm a  */}
+      <Text style={styles.chooseRole}>I'm a</Text>
 
       {/* button container */}
       <View style={styles.btnContainer}>
         {/* vendor */}
-        <Pressable onPress={goToVendorSignIn}>
+        <Pressable onPress={goToVendorSignIn} style={styles.imageContainer}>
           <Image
-            source={require("../assets/images/food-stall.png")}
+            source={require("../assets/images/vendor.png")}
             style={styles.icon}
           />
+          <Text style={styles.roleText}>Vendor</Text>
         </Pressable>
         {/* consumer */}
-        <Pressable onPress={goToQRScan}>
+        <Pressable onPress={goToQRScan} style={styles.imageContainer}>
           <Image
-            source={require("../assets/images/consumer.png")}
+            source={require("../assets/images/eat.png")}
             style={styles.icon}
           />
+          <Text style={styles.roleText}>Foodie</Text>
         </Pressable>
       </View>
     </SafeAreaView>
@@ -71,18 +80,40 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.background,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  heading: {
-    fontSize: 30,
-    textAlign: "center",
+  logo: {
+    height: 150,
+    width: 320,
+  },
+  chooseRole: {
+    fontSize: 40,
+    fontWeight: "bold",
+    marginTop: 10,
+    color: colors.secondary,
   },
   btnContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop: 100,
+    marginTop: 50,
+    width: "100%",
+  },
+  imageContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  roleText: {
+    fontSize: 20,
+    fontWeight: "500",
+    textTransform: "capitalize",
+    marginTop: 10,
+    color: colors.secondary,
+    fontWeight: "600",
   },
   icon: {
-    height: 100,
-    width: 100,
+    height: 120,
+    width: 120,
   },
 });
