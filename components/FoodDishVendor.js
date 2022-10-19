@@ -1,21 +1,22 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { MaterialIcons } from "@expo/vector-icons";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  Modal,
+  SafeAreaView,
+  TextInput,
+  Button,
+} from "react-native";
+import React, { useState } from "react";
+import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { db, doc, deleteDoc, updateDoc } from "../firebase/index";
 
 const FoodDishVendor = (props) => {
-  const {
-    id,
-    dishName,
-    price,
-    colectionName,
-    getMenu,
-    // setAddShowModal,
-    // editDishName,
-    // setDishName,
-    // editPrice,
-    // setPrice,
-  } = props;
+  const { id, dishName, price, colectionName, getMenu } = props;
+  const [showAddModal, setAddShowModal] = useState(false);
+  const [newDishName, setNewDishName] = useState(dishName);
+  const [newPrice, setNewPrice] = useState(price);
 
   // delete food dish
   const deleteFoodDish = async () => {
@@ -24,16 +25,16 @@ const FoodDishVendor = (props) => {
   };
 
   // edit food dish
-  // const editFoodDish = async () => {
-  //   setAddShowModal(true);
-  //   setDishName(dishName);
-  //   setPrice(Number(price));
-  //   const dishRef = doc(db, "brijenma@gmail.com", id);
-  //   await updateDoc(dishRef, {
-  //     dishName: editDishName,
-  //     price: editPrice,
-  //   });
-  // };
+  const editFoodDish = async () => {
+    setAddShowModal(false);
+    const dishRef = doc(db, "brijenma@gmail.com", id);
+    await updateDoc(dishRef, {
+      dishName: newDishName,
+      price: newPrice,
+    });
+
+    getMenu();
+  };
 
   return (
     <View style={styles.container}>
@@ -45,7 +46,10 @@ const FoodDishVendor = (props) => {
       </View>
 
       {/* edit button */}
-      <Pressable style={styles.deleteContainer}>
+      <Pressable
+        style={styles.deleteContainer}
+        onPress={() => setAddShowModal(true)}
+      >
         <MaterialIcons name="edit" size={24} color="gray" />
       </Pressable>
 
@@ -53,6 +57,40 @@ const FoodDishVendor = (props) => {
       <Pressable style={styles.deleteContainer} onPress={deleteFoodDish}>
         <MaterialIcons name="delete" size={27} color="red" />
       </Pressable>
+
+      {/* edit food dish modal */}
+      <Modal visible={showAddModal} animationType="slide">
+        <SafeAreaView>
+          {/* close button */}
+          <Pressable
+            onPress={() => setAddShowModal(false)}
+            style={styles.close}
+          >
+            <Entypo name="circle-with-cross" size={30} color="red" />
+          </Pressable>
+
+          {/* inputs */}
+          <TextInput
+            placeholder="dish name"
+            style={styles.input}
+            value={newDishName}
+            onChangeText={(text) => setNewDishName(text)}
+          />
+          <TextInput
+            placeholder="price"
+            keyboardType="decimal-pad"
+            style={styles.input}
+            value={newPrice}
+            onChangeText={(text) => setNewPrice(text)}
+          />
+
+          {/* buttons */}
+          <View style={styles.buttonContainer}>
+            <Button title="Cancel" onPress={() => setAddShowModal(false)} />
+            <Button title="Edit" onPress={editFoodDish} />
+          </View>
+        </SafeAreaView>
+      </Modal>
     </View>
   );
 };
@@ -91,5 +129,25 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginLeft: 10,
+  },
+  input: {
+    width: "90%",
+    backgroundColor: "lightgray",
+    padding: 10,
+    fontSize: 17,
+    marginTop: 10,
+    alignSelf: "center",
+    borderRadius: 10,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 10,
+  },
+  close: {
+    alignSelf: "flex-end",
+    marginRight: 20,
+    marginBottom: 20,
+    marginTop: 10,
   },
 });

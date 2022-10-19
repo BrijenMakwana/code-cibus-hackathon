@@ -53,14 +53,6 @@ const VendorDashboardScreen = () => {
     );
   };
 
-  // take screenshot
-  const takeScreenShot = async () => {
-    await ref.current.capture().then((uri) => {
-      console.log("do something with ", uri);
-      setQRCode(uri);
-    });
-  };
-
   // download QR code
   const downloadQRCode = async () => {
     await ref.current.capture().then(async (uri) => {
@@ -98,11 +90,6 @@ const VendorDashboardScreen = () => {
               price={item.price}
               id={item.id}
               getMenu={getMenu}
-              setAddShowModal={setAddShowModal}
-              editDishName={dishName}
-              setDishName={setDishName}
-              editPrice={price}
-              setPrice={setPrice}
             />
           )}
           keyExtractor={(item) => item.id}
@@ -145,7 +132,7 @@ const VendorDashboardScreen = () => {
             keyboardType="decimal-pad"
             style={styles.input}
             value={price}
-            onChangeText={(text) => setPrice(Number(text))}
+            onChangeText={(text) => setPrice(text)}
           />
 
           {/* buttons */}
@@ -160,13 +147,8 @@ const VendorDashboardScreen = () => {
       <Modal visible={showQRModal} animationType="slide">
         <SafeAreaView style={styles.qrModal}>
           {/* close button */}
-          <Pressable onPress={() => setShowQRModal(false)}>
-            <Entypo
-              name="circle-with-cross"
-              size={30}
-              color="red"
-              style={styles.close}
-            />
+          <Pressable onPress={() => setShowQRModal(false)} style={styles.close}>
+            <Entypo name="circle-with-cross" size={30} color="red" />
           </Pressable>
           {/* heading */}
           <Text style={styles.heading}>congratulations!!</Text>
