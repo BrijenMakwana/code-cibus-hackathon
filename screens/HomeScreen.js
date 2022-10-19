@@ -8,17 +8,36 @@ import {
 } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   // go to vendor sign in screen
   const goToVendorSignIn = () => {
-    navigation.navigate("VendorSignIn");
+    getUser();
   };
 
   // go to QR scan screen
   const goToQRScan = () => {
     navigation.navigate("QRScan");
+  };
+
+  // get user from local storage
+
+  const getUser = async () => {
+    try {
+      const user = await AsyncStorage.getItem("logged_in_user");
+      if (user !== null) {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "VendorDashboard" }],
+        });
+      } else {
+        navigation.navigate("VendorSignIn");
+      }
+    } catch (e) {
+      // error reading value
+    }
   };
 
   return (

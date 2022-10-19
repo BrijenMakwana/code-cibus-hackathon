@@ -54,11 +54,17 @@ const VendorDashboardScreen = () => {
     );
   };
 
-  const downloadQRCode = async () => {
-    ref.current.capture().then((uri) => {
+  // take screenshot
+  const takeScreenShot = async () => {
+    await ref.current.capture().then((uri) => {
       console.log("do something with ", uri);
       setQRCode(uri);
     });
+  };
+
+  // download QR code
+  const downloadQRCode = async () => {
+    takeScreenShot();
     const { status } = await MediaLibrary.requestPermissionsAsync();
     if (status === "granted") {
       const asset = await MediaLibrary.createAssetAsync(qrCode);

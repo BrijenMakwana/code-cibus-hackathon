@@ -17,10 +17,6 @@ const VendorSignInScreen = () => {
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
 
-  useEffect(() => {
-    getUser();
-  }, []);
-
   // sign in with google
   const signIn = () => {
     signInWithEmailAndPassword(auth, email, password)
@@ -62,22 +58,6 @@ const VendorSignInScreen = () => {
       await AsyncStorage.setItem("logged_in_user", user.email);
     } catch (e) {
       // saving error
-    }
-  };
-
-  // get user from local storage
-
-  const getUser = async () => {
-    try {
-      const user = await AsyncStorage.getItem("logged_in_user");
-      if (user !== null) {
-        navigation.reset({
-          index: 0,
-          routes: [{ name: "VendorDashboard" }],
-        });
-      }
-    } catch (e) {
-      // error reading value
     }
   };
 
