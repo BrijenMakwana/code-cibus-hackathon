@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useNavigation } from "@react-navigation/native";
+import colors from "../constants/colors";
 
 export default QRScanScreen = () => {
   const [hasPermission, setHasPermission] = useState(false);
@@ -37,7 +38,9 @@ export default QRScanScreen = () => {
         style={StyleSheet.absoluteFillObject}
         onBarCodeScanned={scanData ? undefined : handleBarCodeScanned}
       />
-      <StatusBar style="auto" />
+      <View style={styles.scanner}>
+        <Text style={styles.scannerText}>scan the QR code to get menu</Text>
+      </View>
     </View>
   );
 };
@@ -48,5 +51,19 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  scanner: {
+    height: 300,
+    width: 300,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 5,
+    borderColor: colors.primary,
+    borderStyle: "dashed",
+  },
+  scannerText: {
+    fontSize: 18,
+    color: colors.primary,
+    fontWeight: "500",
   },
 });

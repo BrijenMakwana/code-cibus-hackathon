@@ -82,6 +82,7 @@ const VendorSignInScreen = () => {
         placeholderText="password"
         inputValue={password}
         onChangeFunction={setPassword}
+        onSubmitFunction={signIn}
         isSecure={true}
       />
 

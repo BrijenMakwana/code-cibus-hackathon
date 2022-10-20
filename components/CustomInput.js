@@ -8,6 +8,7 @@ const CustomInput = (props) => {
     inputValue,
     onChangeFunction,
     isSecure = false,
+    onSubmitFunction = undefined,
   } = props;
   return (
     <TextInput
@@ -15,6 +16,7 @@ const CustomInput = (props) => {
       style={styles.input}
       value={inputValue}
       onChangeText={(text) => onChangeFunction(text)}
+      onSubmitEditing={onSubmitFunction}
       secureTextEntry={isSecure}
     />
   );

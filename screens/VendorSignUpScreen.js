@@ -63,6 +63,7 @@ const VendorSignUpScreen = () => {
         inputValue={password}
         onChangeFunction={setPassword}
         isSecure={true}
+        onSubmitFunction={signUp}
       />
 
       {/* sign up */}
