@@ -59,12 +59,12 @@ export default function App() {
         <Stack.Screen
           name="VendorSignIn"
           component={VendorSignInScreen}
-          options={{ title: "Sign In" }}
+          options={{ title: null }}
         />
         <Stack.Screen
           name="VendorSignUp"
           component={VendorSignUpScreen}
-          options={{ title: "Sign Up" }}
+          options={{ title: null }}
         />
         <Stack.Screen
           name="VendorDashboard"

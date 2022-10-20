@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  SafeAreaView,
-  TextInput,
-  Button,
-} from "react-native";
+import { StyleSheet, SafeAreaView, Image } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -13,6 +7,9 @@ import {
   signOut,
   sendEmailVerification,
 } from "../firebase/index";
+import colors from "../constants/colors";
+import CustomButton from "../components/CustomButton";
+import CustomInput from "../components/CustomInput";
 
 const VendorSignUpScreen = () => {
   const [email, setEmail] = useState("");
@@ -49,28 +46,27 @@ const VendorSignUpScreen = () => {
   };
   return (
     <SafeAreaView style={styles.container}>
-      {/* app name */}
-      <Text style={styles.heading}>Cibus</Text>
+      {/* register */}
+      <Image
+        source={require("../assets/images/register.png")}
+        style={styles.registerImage}
+      />
 
-      {/* instruction */}
-      <Text style={styles.instruction}>
-        "Please sign up to create the food menu"
-      </Text>
       {/* inputs */}
-      <TextInput
-        placeholder="email"
-        style={styles.input}
-        value={email}
-        onChangeText={(text) => setEmail(text)}
+      <CustomInput
+        placeholderText="enter your email"
+        inputValue={email}
+        onChangeFunction={setEmail}
       />
-      <TextInput
-        placeholder="password"
-        style={styles.input}
-        secureTextEntry
-        value={password}
-        onChangeText={(text) => setPassword(text)}
+      <CustomInput
+        placeholderText="password"
+        inputValue={password}
+        onChangeFunction={setPassword}
+        isSecure={true}
       />
-      <Button title="sign up" onPress={signUp} />
+
+      {/* sign up */}
+      <CustomButton buttonText="register" onPressFunction={signUp} />
     </SafeAreaView>
   );
 };
@@ -81,23 +77,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    backgroundColor: colors.background,
+    justifyContent: "center",
   },
-  heading: {
-    fontSize: 50,
-    textAlign: "center",
-    textTransform: "capitalize",
-  },
-  instruction: {
-    fontSize: 20,
-    marginTop: 20,
-  },
-  input: {
-    width: "90%",
-    backgroundColor: "lightgray",
-    padding: 10,
-    fontSize: 17,
-    marginTop: 10,
-    alignSelf: "center",
-    borderRadius: 10,
+  registerImage: {
+    height: 150,
+    width: 320,
   },
 });

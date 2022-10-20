@@ -91,13 +91,13 @@ const styles = StyleSheet.create({
   chooseRole: {
     fontSize: 40,
     fontWeight: "bold",
-    marginTop: 10,
+    marginTop: 15,
     color: colors.secondary,
   },
   btnContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop: 50,
+    marginTop: 55,
     width: "100%",
   },
   imageContainer: {

@@ -4,20 +4,23 @@ import {
   Pressable,
   StyleSheet,
   Text,
-  Button,
+  View,
   TextInput,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { auth, signInWithEmailAndPassword } from "../firebase/index";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import colors from "../constants/colors";
+import CustomButton from "../components/CustomButton";
+import CustomInput from "../components/CustomInput";
 
 const VendorSignInScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
 
-  // sign in with google
+  // sign in
   const signIn = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -63,29 +66,32 @@ const VendorSignInScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* app name */}
-      <Text style={styles.heading}>Cibus</Text>
+      {/* login */}
+      <Image
+        source={require("../assets/images/login.png")}
+        style={styles.loginImage}
+      />
 
-      {/* instruction */}
-      <Text style={styles.instruction}>
-        "Please sign in to create the food menu"
-      </Text>
       {/* inputs */}
-      <TextInput
-        placeholder="email"
-        style={styles.input}
-        value={email}
-        onChangeText={(text) => setEmail(text)}
+      <CustomInput
+        placeholderText="enter your email"
+        inputValue={email}
+        onChangeFunction={setEmail}
       />
-      <TextInput
-        placeholder="password"
-        style={styles.input}
-        secureTextEntry
-        value={password}
-        onChangeText={(text) => setPassword(text)}
+      <CustomInput
+        placeholderText="password"
+        inputValue={password}
+        onChangeFunction={setPassword}
+        isSecure={true}
       />
-      <Button title="sign In" onPress={signIn} />
-      <Button title="sign Up" onPress={goToSignUpScreen} />
+
+      {/* sign in button */}
+      <CustomButton buttonText="login" onPressFunction={signIn} />
+
+      {/* new account */}
+      <Pressable onPress={goToSignUpScreen} style={styles.newACContainer}>
+        <Text style={styles.newAC}>create a new account</Text>
+      </Pressable>
     </SafeAreaView>
   );
 };
@@ -96,23 +102,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    backgroundColor: colors.background,
+    justifyContent: "center",
   },
-  heading: {
-    fontSize: 50,
-    textAlign: "center",
-    textTransform: "capitalize",
+  loginImage: {
+    height: 150,
+    width: 320,
   },
-  instruction: {
-    fontSize: 20,
-    marginTop: 20,
-  },
-  input: {
-    width: "90%",
-    backgroundColor: "lightgray",
-    padding: 10,
-    fontSize: 17,
+  newACContainer: {
     marginTop: 10,
-    alignSelf: "center",
-    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  newAC: {
+    fontSize: 15,
+
+    fontWeight: "500",
+    color: colors.primary,
   },
 });
