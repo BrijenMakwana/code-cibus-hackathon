@@ -1,13 +1,11 @@
 import {
-  Button,
   Modal,
   Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
-  TextInput,
-  View,
   Image,
+  View,
   FlatList,
 } from "react-native";
 import React, { useEffect, useState, useRef } from "react";
@@ -83,7 +81,11 @@ const VendorDashboardScreen = () => {
     <SafeAreaView style={styles.container}>
       {/* heading */}
       <View style={styles.header}>
-        <Text style={styles.headingText}>Food Menu</Text>
+        {/* heading image */}
+        <Image
+          source={require("../assets/images/menu.png")}
+          style={styles.headingImage}
+        />
         <Text style={styles.totalDishes}>({foodMenu.length})</Text>
       </View>
       <View style={styles.listContainer}>
@@ -209,11 +211,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  headingText: {
-    fontSize: 30,
-    color: colors.font,
-    marginLeft: 30,
-    fontWeight: "600",
+  headingImage: {
+    width: 230,
+    height: 50,
+    marginLeft: 20,
   },
   totalDishes: {
     fontSize: 40,

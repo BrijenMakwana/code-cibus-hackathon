@@ -1,4 +1,11 @@
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import FoodDishConsumer from "../components/FoodDishConsumer";
 import { db, collection, getDocs } from "../firebase/index";
@@ -28,7 +35,11 @@ const MenuScreen = () => {
     <SafeAreaView style={styles.container}>
       {/* heading */}
       <View style={styles.header}>
-        <Text style={styles.headingText}>Food Menu</Text>
+        {/* heading image */}
+        <Image
+          source={require("../assets/images/menu.png")}
+          style={styles.headingImage}
+        />
         <Text style={styles.totalDishes}>({foodMenu.length})</Text>
       </View>
       <View style={styles.listContainer}>
@@ -59,11 +70,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  headingText: {
-    fontSize: 30,
-    color: colors.font,
-    marginLeft: 30,
-    fontWeight: "600",
+  headingImage: {
+    width: 230,
+    height: 50,
+    marginLeft: 20,
   },
   totalDishes: {
     fontSize: 40,
