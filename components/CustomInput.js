@@ -9,6 +9,7 @@ const CustomInput = (props) => {
     onChangeFunction,
     isSecure = false,
     onSubmitFunction = undefined,
+    isNumericKeyboard = false,
   } = props;
   return (
     <TextInput
@@ -18,6 +19,7 @@ const CustomInput = (props) => {
       onChangeText={(text) => onChangeFunction(text)}
       onSubmitEditing={onSubmitFunction}
       secureTextEntry={isSecure}
+      keyboardType={isNumericKeyboard ? "decimal-pad" : "default"}
     />
   );
 };

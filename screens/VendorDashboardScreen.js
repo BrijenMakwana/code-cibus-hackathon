@@ -17,6 +17,8 @@ import ViewShot from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
 import { db, collection, addDoc, docs, getDocs, auth } from "../firebase/index";
 import colors from "../constants/colors";
+import CustomInput from "../components/CustomInput";
+import CustomButton from "../components/CustomButton";
 
 const VendorDashboardScreen = () => {
   const [foodMenu, setFoodMenu] = useState([]);
@@ -122,30 +124,31 @@ const VendorDashboardScreen = () => {
             <Entypo
               name="circle-with-cross"
               size={30}
-              color="red"
+              color={colors.secondary}
               style={styles.close}
             />
           </Pressable>
 
           {/* inputs */}
-          <TextInput
-            placeholder="dish name"
-            style={styles.input}
-            value={dishName}
-            onChangeText={(text) => setDishName(text)}
+          <CustomInput
+            placeholderText="dish name"
+            inputValue={dishName}
+            onChangeFunction={setDishName}
           />
-          <TextInput
-            placeholder="price"
-            keyboardType="decimal-pad"
-            style={styles.input}
-            value={price}
-            onChangeText={(text) => setPrice(text)}
+          <CustomInput
+            placeholderText="price"
+            inputValue={price}
+            onChangeFunction={setPrice}
+            isNumericKeyboard={true}
           />
 
           {/* buttons */}
           <View style={styles.buttonContainer}>
-            <Button title="Cancel" onPress={() => setAddShowModal(false)} />
-            <Button title="Add" onPress={addFoodDish} />
+            <CustomButton
+              buttonText="cancel"
+              onPressFunction={() => setAddShowModal(false)}
+            />
+            <CustomButton buttonText="add" onPressFunction={addFoodDish} />
           </View>
         </SafeAreaView>
       </Modal>

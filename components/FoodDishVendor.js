@@ -12,6 +12,8 @@ import React, { useState } from "react";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { db, doc, deleteDoc, updateDoc } from "../firebase/index";
 import colors from "../constants/colors";
+import CustomInput from "./CustomInput";
+import CustomButton from "./CustomButton";
 
 const FoodDishVendor = (props) => {
   const { id, dishName, price, colectionName, getMenu } = props;
@@ -28,7 +30,7 @@ const FoodDishVendor = (props) => {
   // edit food dish
   const editFoodDish = async () => {
     setAddShowModal(false);
-    const dishRef = doc(db, "brijenma@gmail.com", id);
+    const dishRef = doc(db, colectionName, id);
     await updateDoc(dishRef, {
       dishName: newDishName,
       price: newPrice,
@@ -73,32 +75,35 @@ const FoodDishVendor = (props) => {
       <Modal visible={showAddModal} animationType="slide">
         <SafeAreaView>
           {/* close button */}
-          <Pressable
-            onPress={() => setAddShowModal(false)}
-            style={styles.close}
-          >
-            <Entypo name="circle-with-cross" size={30} color="red" />
+          <Pressable onPress={() => setAddShowModal(false)}>
+            <Entypo
+              name="circle-with-cross"
+              size={30}
+              color={colors.secondary}
+              style={styles.close}
+            />
           </Pressable>
 
           {/* inputs */}
-          <TextInput
-            placeholder="dish name"
-            style={styles.input}
-            value={newDishName}
-            onChangeText={(text) => setNewDishName(text)}
+          <CustomInput
+            placeholderText="dish name"
+            inputValue={newDishName}
+            onChangeFunction={setNewDishName}
           />
-          <TextInput
-            placeholder="price"
-            keyboardType="decimal-pad"
-            style={styles.input}
-            value={newPrice}
-            onChangeText={(text) => setNewPrice(text)}
+          <CustomInput
+            placeholderText="price"
+            inputValue={newPrice}
+            onChangeFunction={setNewPrice}
+            isNumericKeyboard={true}
           />
 
           {/* buttons */}
           <View style={styles.buttonContainer}>
-            <Button title="Cancel" onPress={() => setAddShowModal(false)} />
-            <Button title="Edit" onPress={editFoodDish} />
+            <CustomButton
+              buttonText="cancel"
+              onPressFunction={() => setAddShowModal(false)}
+            />
+            <CustomButton buttonText="edit" onPressFunction={editFoodDish} />
           </View>
         </SafeAreaView>
       </Modal>
