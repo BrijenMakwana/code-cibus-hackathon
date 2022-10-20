@@ -1,4 +1,4 @@
-import { StyleSheet, SafeAreaView, Image } from "react-native";
+import { StyleSheet, SafeAreaView, Image, Alert } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -18,31 +18,35 @@ const VendorSignUpScreen = () => {
 
   // sign up
   const signUp = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        if (user) {
-          sendEmailVerification(auth.currentUser).then(() => {
-            // Email verification sent!
-            // ...
-            signOut(auth)
-              .then(() => {
-                // Sign-out successful.
-                navigation.goBack();
-              })
-              .catch((error) => {
-                // An error happened.
-              });
-          });
-        }
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(error.message);
-      });
+    if (email === "" || password === "") {
+      Alert.alert("Missing fields", "please enter all the fields");
+    } else {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          if (user) {
+            sendEmailVerification(auth.currentUser).then(() => {
+              // Email verification sent!
+              // ...
+              signOut(auth)
+                .then(() => {
+                  // Sign-out successful.
+                  navigation.goBack();
+                })
+                .catch((error) => {
+                  // An error happened.
+                });
+            });
+          }
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          alert(error.message);
+        });
+    }
   };
   return (
     <SafeAreaView style={styles.container}>

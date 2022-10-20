@@ -9,6 +9,7 @@ import {
   FlatList,
   ToastAndroid,
   Platform,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState, useRef } from "react";
 import { AntDesign, Entypo, Ionicons, Feather } from "@expo/vector-icons";
@@ -36,20 +37,24 @@ const VendorDashboardScreen = () => {
 
   // add food dish to menu
   const addFoodDish = async () => {
-    setAddShowModal(false);
-    if (Platform.OS === "android") {
-      ToastAndroid.show(`${dishName} is added`, ToastAndroid.SHORT);
-    }
-    try {
-      await addDoc(collection(db, colectionName), {
-        dishName: dishName,
-        price: price,
-      });
-      getMenu();
-      setDishName("");
-      setPrice(0);
-    } catch (e) {
-      console.error("Error adding document: ", e);
+    if (dishName === "" || price == "") {
+      Alert.alert("Missing fields", "please enter all the fields");
+    } else {
+      setAddShowModal(false);
+      if (Platform.OS === "android") {
+        ToastAndroid.show(`${dishName} is added`, ToastAndroid.SHORT);
+      }
+      try {
+        await addDoc(collection(db, colectionName), {
+          dishName: dishName,
+          price: price,
+        });
+        getMenu();
+        setDishName("");
+        setPrice(0);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
     }
   };
 
@@ -73,7 +78,10 @@ const VendorDashboardScreen = () => {
         MediaLibrary.createAlbumAsync("Cibus", asset)
           .then(() => {
             console.log("Album created!");
-            alert("QR code is downloaded. Check your gallary.");
+            Alert.alert(
+              "Hooray 🥳🥳🥳",
+              "QR code is downloaded, check your gallary."
+            );
           })
           .catch((error) => {
             console.log("err", error);

@@ -4,8 +4,7 @@ import {
   Pressable,
   StyleSheet,
   Text,
-  View,
-  TextInput,
+  Alert,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -22,32 +21,36 @@ const VendorSignInScreen = () => {
 
   // sign in
   const signIn = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
+    if (email === "" || password === "") {
+      Alert.alert("Missing fields", "please enter all the fields");
+    } else {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
 
-        if (user) {
-          if (user.emailVerified) {
-            navigation.reset({
-              index: 0,
-              routes: [{ name: "VendorDashboard" }],
-            });
+          if (user) {
+            if (user.emailVerified) {
+              navigation.reset({
+                index: 0,
+                routes: [{ name: "VendorDashboard" }],
+              });
 
-            storeUser(user);
-          } else {
-            alert(
-              "please verify your email address by clicking on the confirmation link sent to your registered email id"
-            );
+              storeUser(user);
+            } else {
+              alert(
+                "please verify your email address by clicking on the confirmation link sent to your registered email id"
+              );
+            }
           }
-        }
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(error.message);
-      });
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          alert(error.message);
+        });
+    }
   };
 
   // go to register screen

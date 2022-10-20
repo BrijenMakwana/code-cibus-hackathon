@@ -83,7 +83,7 @@ export default function App() {
         <Stack.Screen
           name="QRScan"
           component={QRScanScreen}
-          options={{ title: "Scan" }}
+          options={{ title: null, headerShadowVisible: false }}
         />
         <Stack.Screen
           name="Menu"

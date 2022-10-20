@@ -48,7 +48,7 @@ export default QRScanScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.primary,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   scannerText: {
     fontSize: 18,
-    color: colors.primary,
+    color: colors.font,
     fontWeight: "500",
   },
 });

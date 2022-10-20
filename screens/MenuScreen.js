@@ -5,6 +5,7 @@ import {
   Text,
   View,
   Image,
+  ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import FoodDishConsumer from "../components/FoodDishConsumer";
@@ -43,13 +44,19 @@ const MenuScreen = () => {
         <Text style={styles.totalDishes}>({foodMenu.length})</Text>
       </View>
       <View style={styles.listContainer}>
-        {foodMenu && (
+        {foodMenu.length > 0 ? (
           <FlatList
             data={foodMenu}
             renderItem={({ item }) => (
               <FoodDishConsumer dishName={item.dishName} price={item.price} />
             )}
             keyExtractor={(item) => item.id}
+          />
+        ) : (
+          <ActivityIndicator
+            color={colors.primary}
+            size="large"
+            style={{ marginTop: "auto", marginBottom: "auto" }}
           />
         )}
       </View>
