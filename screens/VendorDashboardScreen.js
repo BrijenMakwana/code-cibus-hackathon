@@ -9,7 +9,7 @@ import {
   FlatList,
 } from "react-native";
 import React, { useEffect, useState, useRef } from "react";
-import { AntDesign, Entypo } from "@expo/vector-icons";
+import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
 import FoodDishVendor from "../components/FoodDishVendor";
 import ViewShot from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
@@ -90,7 +90,7 @@ const VendorDashboardScreen = () => {
       </View>
       <View style={styles.listContainer}>
         {/* list of food dishes */}
-        {foodMenu && (
+        {foodMenu.length > 0 ? (
           <FlatList
             data={foodMenu}
             renderItem={({ item }) => (
@@ -104,18 +104,34 @@ const VendorDashboardScreen = () => {
             )}
             keyExtractor={(item) => item.id}
           />
+        ) : (
+          <View style={styles.emptyContainer}>
+            <Image
+              source={require("../assets/images/empty.png")}
+              style={styles.emptyImage}
+            />
+            <Text style={styles.emptyText}>
+              add food dishes by pressing this button
+            </Text>
+          </View>
         )}
 
         {/* fab button */}
         <Pressable style={styles.fab} onPress={() => setAddShowModal(true)}>
-          <AntDesign name="plus" size={24} color={colors.font} />
+          {/* <AntDesign name="plus" size={24} color={colors.font} /> */}
+          <Ionicons name="fast-food" size={24} color={colors.font} />
         </Pressable>
 
         {/* QR code generate button */}
-        <Pressable style={styles.qrButton} onPress={() => setShowQRModal(true)}>
-          <AntDesign name="qrcode" size={30} color={colors.font} />
-          <Text style={styles.qrButtonText}>generate QR code</Text>
-        </Pressable>
+        {foodMenu.length > 0 && (
+          <Pressable
+            style={styles.qrButton}
+            onPress={() => setShowQRModal(true)}
+          >
+            <AntDesign name="qrcode" size={30} color={colors.font} />
+            <Text style={styles.qrButtonText}>generate QR code</Text>
+          </Pressable>
+        )}
       </View>
 
       {/* add food dish modal */}
@@ -184,7 +200,7 @@ const VendorDashboardScreen = () => {
             >
               <Image
                 source={{
-                  uri: `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${colectionName}&color=3C4048`,
+                  uri: `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${colectionName}`,
                 }}
                 style={styles.qrImage}
               />
@@ -197,7 +213,10 @@ const VendorDashboardScreen = () => {
           </Text>
 
           {/* download button */}
-          <CustomButton buttonText="download" onPressButton={downloadQRCode} />
+          <CustomButton
+            buttonText="download"
+            onPressFunction={downloadQRCode}
+          />
         </SafeAreaView>
       </Modal>
     </SafeAreaView>
@@ -233,8 +252,23 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     backgroundColor: colors.background,
     paddingTop: 10,
-    // paddingBottom: 80,
     flex: 1,
+  },
+  emptyContainer: {
+    alignSelf: "center",
+    marginTop: "auto",
+    marginBottom: "auto",
+    opacity: 0.5,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  emptyImage: {
+    width: 250,
+    height: 250,
+  },
+  emptyText: {
+    fontSize: 15,
+    color: colors.secondary,
   },
   fab: {
     backgroundColor: colors.secondary,
@@ -261,7 +295,6 @@ const styles = StyleSheet.create({
   },
   qrButtonText: {
     fontSize: 16,
-    textTransform: "capitalize",
     marginLeft: 10,
     color: colors.font,
   },

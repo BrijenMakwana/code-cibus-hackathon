@@ -62,12 +62,12 @@ const FoodDishVendor = (props) => {
           style={styles.deleteContainer}
           onPress={() => setAddShowModal(true)}
         >
-          <MaterialIcons name="edit" size={24} color="#EFEFEF" />
+          <MaterialIcons name="edit" size={24} color={colors.font} />
         </Pressable>
 
         {/* delete button */}
         <Pressable style={styles.deleteContainer} onPress={deleteFoodDish}>
-          <MaterialIcons name="delete" size={27} color="#3C4048" />
+          <MaterialIcons name="delete" size={27} color={colors.secondary} />
         </Pressable>
       </View>
 
