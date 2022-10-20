@@ -5,8 +5,7 @@ import {
   View,
   Modal,
   SafeAreaView,
-  TextInput,
-  Button,
+  ToastAndroid,
 } from "react-native";
 import React, { useState } from "react";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
@@ -23,6 +22,9 @@ const FoodDishVendor = (props) => {
 
   // delete food dish
   const deleteFoodDish = async () => {
+    if (Platform.OS === "android") {
+      ToastAndroid.show(`${dishName} is deleted`, ToastAndroid.SHORT);
+    }
     await deleteDoc(doc(db, colectionName, id));
     getMenu();
   };

@@ -7,9 +7,11 @@ import {
   Image,
   View,
   FlatList,
+  ToastAndroid,
+  Platform,
 } from "react-native";
 import React, { useEffect, useState, useRef } from "react";
-import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
+import { AntDesign, Entypo, Ionicons, Feather } from "@expo/vector-icons";
 import FoodDishVendor from "../components/FoodDishVendor";
 import ViewShot from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
@@ -17,13 +19,17 @@ import { db, collection, addDoc, docs, getDocs, auth } from "../firebase/index";
 import colors from "../constants/colors";
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
+import { useNavigation } from "@react-navigation/native";
 
 const VendorDashboardScreen = () => {
   const [foodMenu, setFoodMenu] = useState([]);
   const [colectionName, setCollectionName] = useState(auth.currentUser.email);
   const [dishName, setDishName] = useState("");
   const [price, setPrice] = useState(0);
+
   const ref = useRef();
+
+  const navigation = useNavigation();
 
   const [showAddModal, setAddShowModal] = useState(false);
   const [showQRModal, setShowQRModal] = useState(false);
@@ -31,8 +37,11 @@ const VendorDashboardScreen = () => {
   // add food dish to menu
   const addFoodDish = async () => {
     setAddShowModal(false);
+    if (Platform.OS === "android") {
+      ToastAndroid.show(`${dishName} is added`, ToastAndroid.SHORT);
+    }
     try {
-      const docRef = await addDoc(collection(db, colectionName), {
+      await addDoc(collection(db, colectionName), {
         dishName: dishName,
         price: price,
       });
@@ -73,8 +82,27 @@ const VendorDashboardScreen = () => {
     });
   };
 
+  // display user email in toast message
+  const getUserToastMessage = () => {
+    if (Platform.OS === "android") {
+      ToastAndroid.show(
+        `${colectionName} is currently logged in`,
+        ToastAndroid.LONG
+      );
+    }
+  };
+
+  // get menu(if any) when user open dashboard first time
   useEffect(() => {
     getMenu();
+    // set email of the vendor in header bar
+    navigation.setOptions({
+      headerLeft: () => (
+        <Pressable onPress={getUserToastMessage}>
+          <Feather name="user" size={30} color={colors.font} />
+        </Pressable>
+      ),
+    });
   }, []);
 
   return (
@@ -103,6 +131,7 @@ const VendorDashboardScreen = () => {
               />
             )}
             keyExtractor={(item) => item.id}
+            ListFooterComponent={<View style={{ height: 100 }} />}
           />
         ) : (
           <View style={styles.emptyContainer}>
