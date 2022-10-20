@@ -160,10 +160,18 @@ const VendorDashboardScreen = () => {
         <SafeAreaView style={styles.qrModal}>
           {/* close button */}
           <Pressable onPress={() => setShowQRModal(false)} style={styles.close}>
-            <Entypo name="circle-with-cross" size={30} color="red" />
+            <Entypo
+              name="circle-with-cross"
+              size={30}
+              color={colors.secondary}
+            />
           </Pressable>
-          {/* heading */}
-          <Text style={styles.heading}>congratulations!!</Text>
+          {/* heading image */}
+          <Image
+            source={require("../assets/images/congratulations.png")}
+            style={{ width: 350, height: 90 }}
+          />
+
           {/* QR */}
           <>
             <ViewShot
@@ -176,7 +184,7 @@ const VendorDashboardScreen = () => {
             >
               <Image
                 source={{
-                  uri: `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${colectionName}`,
+                  uri: `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${colectionName}&color=3C4048`,
                 }}
                 style={styles.qrImage}
               />
@@ -189,9 +197,7 @@ const VendorDashboardScreen = () => {
           </Text>
 
           {/* download button */}
-          <Pressable style={styles.downloadBtn} onPress={downloadQRCode}>
-            <Text style={styles.downloadText}>download</Text>
-          </Pressable>
+          <CustomButton buttonText="download" onPressButton={downloadQRCode} />
         </SafeAreaView>
       </Modal>
     </SafeAreaView>
@@ -280,7 +286,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   qrModal: {
-    // alignItems: "center",
+    backgroundColor: colors.background,
+    flex: 1,
+    alignItems: "center",
   },
   heading: {
     fontSize: 40,
@@ -294,22 +302,11 @@ const styles = StyleSheet.create({
   },
   readyText: {
     fontSize: 20,
-    marginTop: 20,
+    marginTop: 30,
     marginHorizontal: 20,
     textAlign: "center",
-  },
-  downloadBtn: {
-    backgroundColor: colors.primary,
-    padding: 20,
-    borderRadius: 15,
-    marginTop: 20,
-    width: 140,
-    alignSelf: "center",
-  },
-  downloadText: {
-    fontSize: 20,
-    color: "#fff",
-    fontWeight: "600",
-    textTransform: "capitalize",
+    color: colors.secondary,
+    fontWeight: "500",
+    marginBottom: 20,
   },
 });
