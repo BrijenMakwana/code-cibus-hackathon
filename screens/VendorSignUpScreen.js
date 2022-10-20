@@ -58,12 +58,12 @@ const VendorSignUpScreen = () => {
 
       {/* inputs */}
       <CustomInput
-        placeholderText="enter your email"
+        placeholderText="Email"
         inputValue={email}
         onChangeFunction={setEmail}
       />
       <CustomInput
-        placeholderText="password"
+        placeholderText="Password"
         inputValue={password}
         onChangeFunction={setPassword}
         isSecure={true}

@@ -48,7 +48,7 @@ const VendorSignInScreen = () => {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          alert(error.message);
+          alert(errorCode, errorMessage);
         });
     }
   };
@@ -77,12 +77,12 @@ const VendorSignInScreen = () => {
 
       {/* inputs */}
       <CustomInput
-        placeholderText="enter your email"
+        placeholderText="Email"
         inputValue={email}
         onChangeFunction={setEmail}
       />
       <CustomInput
-        placeholderText="password"
+        placeholderText="Password"
         inputValue={password}
         onChangeFunction={setPassword}
         onSubmitFunction={signIn}

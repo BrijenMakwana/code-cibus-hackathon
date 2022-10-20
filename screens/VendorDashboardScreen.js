@@ -173,7 +173,7 @@ const VendorDashboardScreen = () => {
 
       {/* add food dish modal */}
       <Modal visible={showAddModal} animationType="slide">
-        <SafeAreaView>
+        <SafeAreaView style={styles.addModal}>
           {/* close button */}
           <Pressable onPress={() => setAddShowModal(false)}>
             <Entypo
@@ -186,12 +186,12 @@ const VendorDashboardScreen = () => {
 
           {/* inputs */}
           <CustomInput
-            placeholderText="dish name"
+            placeholderText="Dish Name"
             inputValue={dishName}
             onChangeFunction={setDishName}
           />
           <CustomInput
-            placeholderText="price"
+            placeholderText="Price"
             inputValue={price}
             onChangeFunction={setPrice}
             isNumericKeyboard={true}
@@ -335,21 +335,17 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     color: colors.font,
   },
+  addModal: {
+    backgroundColor: colors.background,
+    flex: 1,
+  },
   close: {
     alignSelf: "flex-end",
     marginRight: 20,
     marginBottom: 20,
     marginTop: 10,
   },
-  input: {
-    width: "90%",
-    backgroundColor: "lightgray",
-    padding: 10,
-    fontSize: 17,
-    marginTop: 10,
-    alignSelf: "center",
-    borderRadius: 10,
-  },
+
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-around",

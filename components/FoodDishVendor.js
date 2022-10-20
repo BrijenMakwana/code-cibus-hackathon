@@ -37,7 +37,9 @@ const FoodDishVendor = (props) => {
       dishName: newDishName,
       price: newPrice,
     });
-
+    if (Platform.OS === "android") {
+      ToastAndroid.show(`edited`, ToastAndroid.SHORT);
+    }
     getMenu();
   };
 

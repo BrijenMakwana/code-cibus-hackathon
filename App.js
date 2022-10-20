@@ -12,6 +12,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { auth, signOut } from "./firebase/index";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "./constants/colors";
+import OnboardingScreen from "./screens/OnboardingScreen";
+import { useState, useEffect } from "react";
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +33,7 @@ export default function App() {
       });
   };
 
+  // remove user fro local storage
   const removeUserFromLocalStorage = async () => {
     try {
       await AsyncStorage.removeItem("logged_in_user");
@@ -38,6 +41,7 @@ export default function App() {
       // remove error
     }
   };
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -52,9 +56,14 @@ export default function App() {
         }}
       >
         <Stack.Screen
+          name="Onboarding"
+          component={OnboardingScreen}
+          options={{ title: "Cibus", headerShown: false }}
+        />
+        <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ title: "Cibus", headerShown: false }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="VendorSignIn"
@@ -72,7 +81,6 @@ export default function App() {
           options={({ navigation }) => ({
             title: null,
             headerShadowVisible: false,
-            // headerShown: false,
             headerRight: () => (
               <Pressable onPress={() => signOutUser(navigation)}>
                 <MaterialIcons name="logout" size={24} color="#fff" />
