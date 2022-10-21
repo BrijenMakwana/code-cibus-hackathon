@@ -19,37 +19,58 @@ const VendorSignInScreen = () => {
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
 
+  // check if valid email or not
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
   // sign in
   const signIn = () => {
     if (email === "" || password === "") {
       Alert.alert("Missing fields", "please enter all the fields");
     } else {
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
+      if (validateEmail(email)) {
+        signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
 
-          if (user) {
-            if (user.emailVerified) {
-              navigation.reset({
-                index: 0,
-                routes: [{ name: "VendorDashboard" }],
-              });
+            if (user) {
+              if (user.emailVerified) {
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: "VendorDashboard" }],
+                });
 
-              storeUser(user);
-            } else {
-              alert(
-                "please verify your email address by clicking on the confirmation link sent to your registered email id"
+                storeUser(user);
+              } else {
+                alert(
+                  "please verify your email address by clicking on the confirmation link sent to your registered email id"
+                );
+              }
+            }
+            // ...
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+
+            if (
+              errorCode === "auth/wrong-password" ||
+              errorCode === "auth/user-not-found"
+            ) {
+              Alert.alert(
+                "Invalid Credentials",
+                "please try again with correct credentials"
               );
             }
-          }
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          alert(errorCode, errorMessage);
-        });
+          });
+      } else {
+        Alert.alert("Invalid Email", "please a valid email address");
+      }
     }
   };
 
