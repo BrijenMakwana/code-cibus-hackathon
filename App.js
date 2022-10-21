@@ -8,25 +8,25 @@ import QRScanScreen from "./screens/QRScanScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import VendorSignUpScreen from "./screens/VendorSignUpScreen";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { auth, signOut } from "./firebase/index";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "./constants/colors";
 import OnboardingScreen from "./screens/OnboardingScreen";
-import { useState, useEffect } from "react";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  // sign out
   const signOutUser = (navigation) => {
-    removeUserFromLocalStorage();
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "Home" }],
-    });
     signOut(auth)
       .then(() => {
         // Sign-out successful.
+        removeUserFromLocalStorage();
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Home" }],
+        });
       })
       .catch((error) => {
         // An error happened.
@@ -58,7 +58,7 @@ export default function App() {
         <Stack.Screen
           name="Onboarding"
           component={OnboardingScreen}
-          options={{ title: "Cibus", headerShown: false }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Home"
@@ -83,7 +83,7 @@ export default function App() {
             headerShadowVisible: false,
             headerRight: () => (
               <Pressable onPress={() => signOutUser(navigation)}>
-                <MaterialIcons name="logout" size={24} color="#fff" />
+                <MaterialIcons name="logout" size={24} color={colors.font} />
               </Pressable>
             ),
           })}
@@ -96,7 +96,22 @@ export default function App() {
         <Stack.Screen
           name="Menu"
           component={MenuScreen}
-          options={{ title: null, headerShadowVisible: false }}
+          options={({ navigation }) => ({
+            title: null,
+            headerShadowVisible: false,
+            headerLeft: () => (
+              <Pressable
+                onPress={() => {
+                  navigation.reset({
+                    index: 0,
+                    routes: [{ name: "Home" }],
+                  });
+                }}
+              >
+                <Entypo name="home" size={24} color={colors.font} />
+              </Pressable>
+            ),
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>

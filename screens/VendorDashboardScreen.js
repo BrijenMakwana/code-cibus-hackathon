@@ -40,20 +40,24 @@ const VendorDashboardScreen = () => {
     if (dishName === "" || price == "") {
       Alert.alert("Missing fields", "please enter all the fields");
     } else {
-      setAddShowModal(false);
-      if (Platform.OS === "android") {
-        ToastAndroid.show(`${dishName} is added`, ToastAndroid.SHORT);
-      }
-      try {
-        await addDoc(collection(db, colectionName), {
-          dishName: dishName,
-          price: price,
-        });
-        getMenu();
-        setDishName("");
-        setPrice(0);
-      } catch (e) {
-        console.error("Error adding document: ", e);
+      if (!isNaN(price)) {
+        setAddShowModal(false);
+        if (Platform.OS === "android") {
+          ToastAndroid.show(`${dishName} is added`, ToastAndroid.SHORT);
+        }
+        try {
+          await addDoc(collection(db, colectionName), {
+            dishName: dishName,
+            price: price,
+          });
+          getMenu();
+          setDishName("");
+          setPrice(0);
+        } catch (e) {
+          console.error("Error adding document: ", e);
+        }
+      } else {
+        Alert.alert("Invalid Price", "please enter a valid price");
       }
     }
   };

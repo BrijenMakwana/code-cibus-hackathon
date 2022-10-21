@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ALert, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useNavigation } from "@react-navigation/native";
@@ -25,19 +25,42 @@ export default QRScanScreen = () => {
     );
   }
 
+  // check if data is a valid email or not
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
   const handleBarCodeScanned = ({ type, data }) => {
     setScanData(data);
-    navigation.navigate("Menu", {
-      collectionName: data,
-    });
+
+    if (validateEmail(data)) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Menu", params: { collectionName: data } }],
+      });
+    } else {
+      Alert.alert("Not Foodora", "It's not a valid Foodora QR code", [
+        {
+          text: "Scan Again",
+          onPress: () => setScanData(),
+        },
+      ]);
+    }
   };
 
   return (
     <View style={styles.container}>
-      <BarCodeScanner
-        style={StyleSheet.absoluteFillObject}
-        onBarCodeScanned={scanData ? undefined : handleBarCodeScanned}
-      />
+      {!scanData && (
+        <BarCodeScanner
+          style={StyleSheet.absoluteFillObject}
+          onBarCodeScanned={scanData ? undefined : handleBarCodeScanned}
+        />
+      )}
+
       <View style={styles.scanner}>
         <Text style={styles.scannerText}>scan the QR code to get menu</Text>
       </View>

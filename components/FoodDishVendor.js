@@ -6,8 +6,9 @@ import {
   Modal,
   SafeAreaView,
   ToastAndroid,
+  Alert,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { db, doc, deleteDoc, updateDoc } from "../firebase/index";
 import colors from "../constants/colors";
@@ -31,16 +32,24 @@ const FoodDishVendor = (props) => {
 
   // edit food dish
   const editFoodDish = async () => {
-    setAddShowModal(false);
-    const dishRef = doc(db, colectionName, id);
-    await updateDoc(dishRef, {
-      dishName: newDishName,
-      price: newPrice,
-    });
-    if (Platform.OS === "android") {
-      ToastAndroid.show(`edited`, ToastAndroid.SHORT);
+    if (newDishName === "" || newPrice == "") {
+      Alert.alert("Missing fields", "please enter all the fields");
+    } else {
+      if (!isNaN(newPrice)) {
+        setAddShowModal(false);
+        const dishRef = doc(db, colectionName, id);
+        await updateDoc(dishRef, {
+          dishName: newDishName,
+          price: newPrice,
+        });
+        if (Platform.OS === "android") {
+          ToastAndroid.show(`edited`, ToastAndroid.SHORT);
+        }
+        getMenu();
+      } else {
+        Alert.alert("Invalid Price", "please enter a valid price");
+      }
     }
-    getMenu();
   };
 
   return (
@@ -52,15 +61,7 @@ const FoodDishVendor = (props) => {
         <Text style={styles.price}>Rs. {price}</Text>
       </View>
 
-      <View
-        style={{
-          flexDirection: "row",
-          backgroundColor: colors.third,
-          alignItems: "center",
-          borderTopRightRadius: 15,
-          borderBottomRightRadius: 15,
-        }}
-      >
+      <View style={styles.actionButtonsContainer}>
         {/* edit button */}
         <Pressable
           style={styles.deleteContainer}
@@ -79,7 +80,13 @@ const FoodDishVendor = (props) => {
       <Modal visible={showAddModal} animationType="slide">
         <SafeAreaView>
           {/* close button */}
-          <Pressable onPress={() => setAddShowModal(false)}>
+          <Pressable
+            onPress={() => {
+              setNewDishName(dishName);
+              setNewPrice(price);
+              setAddShowModal(false);
+            }}
+          >
             <Entypo
               name="circle-with-cross"
               size={30}
@@ -149,6 +156,13 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 18,
     fontWeight: "600",
+  },
+  actionButtonsContainer: {
+    flexDirection: "row",
+    backgroundColor: colors.third,
+    alignItems: "center",
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
   },
   deleteContainer: {
     height: 50,

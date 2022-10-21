@@ -16,6 +16,7 @@ import colors from "../constants/colors";
 const MenuScreen = () => {
   const [foodMenu, setFoodMenu] = useState([]);
   const route = useRoute();
+
   const [collectionName, setCollectionName] = useState(
     route.params.collectionName
   );
