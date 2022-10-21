@@ -48,8 +48,9 @@ const VendorSignInScreen = () => {
 
                 storeUser(user);
               } else {
-                alert(
-                  "please verify your email address by clicking on the confirmation link sent to your registered email id"
+                Alert.alert(
+                  "Verify Email",
+                  "please verify your email address by clicking on the confirmation link we sent to your registered email, also check spam"
                 );
               }
             }
