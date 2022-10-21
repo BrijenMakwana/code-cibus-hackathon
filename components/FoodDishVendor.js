@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   ToastAndroid,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
@@ -20,6 +21,7 @@ const FoodDishVendor = (props) => {
   const [showEditModal, setEditShowModal] = useState(false);
   const [newDishName, setNewDishName] = useState(dishName);
   const [newPrice, setNewPrice] = useState(price);
+  const [isLoading, setIsloading] = useState(false);
 
   // delete food dish
   const deleteFoodDish = async () => {
@@ -36,12 +38,15 @@ const FoodDishVendor = (props) => {
       Alert.alert("Missing fields", "please enter all the fields");
     } else {
       if (!isNaN(newPrice)) {
-        setEditShowModal(false);
+        setIsloading(true);
+
         const dishRef = doc(db, colectionName, id);
         await updateDoc(dishRef, {
           dishName: newDishName,
           price: newPrice,
         });
+        setEditShowModal(false);
+        setIsloading(false);
         if (Platform.OS === "android") {
           ToastAndroid.show(`edited`, ToastAndroid.SHORT);
         }
@@ -109,13 +114,19 @@ const FoodDishVendor = (props) => {
           />
 
           {/* buttons */}
-          <View style={styles.buttonContainer}>
-            <CustomButton
-              buttonText="cancel"
-              onPressFunction={() => setEditShowModal(false)}
-            />
-            <CustomButton buttonText="edit" onPressFunction={editFoodDish} />
-          </View>
+          {isLoading ? (
+            <ActivityIndicator size="small" color={colors.primary} />
+          ) : (
+            <View style={styles.buttonContainer}>
+              {/* cancel */}
+              <CustomButton
+                buttonText="cancel"
+                onPressFunction={() => setEditShowModal(false)}
+              />
+              {/* edit */}
+              <CustomButton buttonText="edit" onPressFunction={editFoodDish} />
+            </View>
+          )}
         </SafeAreaView>
       </Modal>
     </View>

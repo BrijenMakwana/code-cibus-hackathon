@@ -10,6 +10,7 @@ import {
   ToastAndroid,
   Platform,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useState, useRef } from "react";
 import { AntDesign, Entypo, Ionicons, Feather } from "@expo/vector-icons";
@@ -26,6 +27,7 @@ const VendorDashboardScreen = () => {
   const [foodMenu, setFoodMenu] = useState([]);
   const [colectionName, setCollectionName] = useState(auth.currentUser.email);
   const [dishName, setDishName] = useState("");
+  const [isLoading, setIsloading] = useState(false);
   const [price, setPrice] = useState(0);
 
   const ref = useRef();
@@ -41,19 +43,24 @@ const VendorDashboardScreen = () => {
       Alert.alert("Missing fields", "please enter all the fields");
     } else {
       if (!isNaN(price)) {
-        setAddShowModal(false);
-        if (Platform.OS === "android") {
-          ToastAndroid.show(`${dishName} is added`, ToastAndroid.SHORT);
-        }
+        setIsloading(true);
+
         try {
           await addDoc(collection(db, colectionName), {
             dishName: dishName,
             price: price,
           });
+          setAddShowModal(false);
+          setIsloading(false);
+          if (Platform.OS === "android") {
+            ToastAndroid.show(`${dishName} is added`, ToastAndroid.SHORT);
+          }
           getMenu();
           setDishName("");
           setPrice(0);
-        } catch (e) {}
+        } catch (e) {
+          setIsloading(false);
+        }
       } else {
         Alert.alert("Invalid Price", "please enter a valid price");
       }
@@ -194,14 +201,20 @@ const VendorDashboardScreen = () => {
             isNumericKeyboard={true}
           />
 
-          {/* buttons */}
-          <View style={styles.buttonContainer}>
-            <CustomButton
-              buttonText="cancel"
-              onPressFunction={() => setAddShowModal(false)}
-            />
-            <CustomButton buttonText="add" onPressFunction={addFoodDish} />
-          </View>
+          {isLoading ? (
+            <ActivityIndicator size="small" color={colors.primary} />
+          ) : (
+            // buttons container
+            <View style={styles.buttonContainer}>
+              {/* cancel */}
+              <CustomButton
+                buttonText="cancel"
+                onPressFunction={() => setAddShowModal(false)}
+              />
+              {/* add */}
+              <CustomButton buttonText="add" onPressFunction={addFoodDish} />
+            </View>
+          )}
         </SafeAreaView>
       </Modal>
 
