@@ -37,7 +37,7 @@ const VendorSignUpScreen = () => {
             if (user) {
               sendEmailVerification(auth.currentUser).then(() => {
                 // Email verification sent!
-                // ...
+
                 Alert.alert(
                   "Verify Email",
                   "please verify your email address by clicking on the confirmation link we sent to your registered email, also check spam"
@@ -47,9 +47,7 @@ const VendorSignUpScreen = () => {
                     // Sign-out successful.
                     navigation.goBack();
                   })
-                  .catch((error) => {
-                    // An error happened.
-                  });
+                  .catch((error) => {});
               });
             }
             // ...
@@ -65,7 +63,7 @@ const VendorSignUpScreen = () => {
             } else if (errorCode === "auth/email-already-in-use") {
               Alert.alert(
                 "Already Registered",
-                "We already have a account with this email"
+                "We already have an account with this email"
               );
             }
           });
@@ -76,7 +74,7 @@ const VendorSignUpScreen = () => {
   };
   return (
     <SafeAreaView style={styles.container}>
-      {/* register */}
+      {/* register image */}
       <Image
         source={require("../assets/images/register.png")}
         style={styles.registerImage}

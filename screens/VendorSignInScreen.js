@@ -6,7 +6,7 @@ import {
   Text,
   Alert,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { auth, signInWithEmailAndPassword } from "../firebase/index";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -84,14 +84,12 @@ const VendorSignInScreen = () => {
   const storeUser = async (user) => {
     try {
       await AsyncStorage.setItem("logged_in_user", user.email);
-    } catch (e) {
-      // saving error
-    }
+    } catch (e) {}
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* login */}
+      {/* login image */}
       <Image
         source={require("../assets/images/login.png")}
         style={styles.loginImage}
@@ -142,7 +140,6 @@ const styles = StyleSheet.create({
   },
   newAC: {
     fontSize: 15,
-
     fontWeight: "500",
     color: colors.primary,
   },

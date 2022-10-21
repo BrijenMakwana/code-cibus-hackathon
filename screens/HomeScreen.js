@@ -24,7 +24,6 @@ const HomeScreen = () => {
   };
 
   // get user from local storage
-
   const getUser = async () => {
     try {
       const user = await AsyncStorage.getItem("logged_in_user");
@@ -36,14 +35,12 @@ const HomeScreen = () => {
       } else {
         navigation.navigate("VendorSignIn");
       }
-    } catch (e) {
-      // error reading value
-    }
+    } catch (e) {}
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* app name */}
+      {/* app logo */}
       <Image
         source={require("../assets/images/foodora.png")}
         style={styles.logo}

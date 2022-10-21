@@ -1,5 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ALert, Alert } from "react-native";
+import { StyleSheet, Text, View, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useNavigation } from "@react-navigation/native";
@@ -60,7 +59,7 @@ export default QRScanScreen = () => {
           onBarCodeScanned={scanData ? undefined : handleBarCodeScanned}
         />
       )}
-
+      {/* on top of barcode scanner */}
       <View style={styles.scanner}>
         <Text style={styles.scannerText}>scan the QR code to get menu</Text>
       </View>

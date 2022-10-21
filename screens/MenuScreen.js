@@ -35,7 +35,7 @@ const MenuScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* heading */}
+      {/* header */}
       <View style={styles.header}>
         {/* heading image */}
         <Image

@@ -53,9 +53,7 @@ const VendorDashboardScreen = () => {
           getMenu();
           setDishName("");
           setPrice(0);
-        } catch (e) {
-          console.error("Error adding document: ", e);
-        }
+        } catch (e) {}
       } else {
         Alert.alert("Invalid Price", "please enter a valid price");
       }
@@ -74,22 +72,18 @@ const VendorDashboardScreen = () => {
   // download QR code
   const downloadQRCode = async () => {
     await ref.current.capture().then(async (uri) => {
-      console.log("do something with ", uri);
       const { status } = await MediaLibrary.requestPermissionsAsync();
-      console.log(status, "status");
+
       if (status === "granted") {
         const asset = await MediaLibrary.createAssetAsync(uri);
         MediaLibrary.createAlbumAsync("Foodora", asset)
           .then(() => {
-            console.log("Album created!");
             Alert.alert(
               "Hooray 🥳🥳🥳",
               "QR code is downloaded, check your gallary."
             );
           })
-          .catch((error) => {
-            console.log("err", error);
-          });
+          .catch((error) => {});
       }
     });
   };
@@ -159,7 +153,6 @@ const VendorDashboardScreen = () => {
 
         {/* fab button */}
         <Pressable style={styles.fab} onPress={() => setAddShowModal(true)}>
-          {/* <AntDesign name="plus" size={24} color={colors.font} /> */}
           <Ionicons name="fast-food" size={24} color={colors.font} />
         </Pressable>
 

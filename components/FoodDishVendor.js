@@ -8,7 +8,7 @@ import {
   ToastAndroid,
   Alert,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { db, doc, deleteDoc, updateDoc } from "../firebase/index";
 import colors from "../constants/colors";
@@ -17,7 +17,7 @@ import CustomButton from "./CustomButton";
 
 const FoodDishVendor = (props) => {
   const { id, dishName, price, colectionName, getMenu } = props;
-  const [showAddModal, setAddShowModal] = useState(false);
+  const [showEditModal, setEditShowModal] = useState(false);
   const [newDishName, setNewDishName] = useState(dishName);
   const [newPrice, setNewPrice] = useState(price);
 
@@ -36,7 +36,7 @@ const FoodDishVendor = (props) => {
       Alert.alert("Missing fields", "please enter all the fields");
     } else {
       if (!isNaN(newPrice)) {
-        setAddShowModal(false);
+        setEditShowModal(false);
         const dishRef = doc(db, colectionName, id);
         await updateDoc(dishRef, {
           dishName: newDishName,
@@ -58,14 +58,14 @@ const FoodDishVendor = (props) => {
         {/* dish name */}
         <Text style={styles.dishName}>{dishName}</Text>
         {/* price */}
-        <Text style={styles.price}>Rs. {price}</Text>
+        <Text style={styles.price}>${price}</Text>
       </View>
 
       <View style={styles.actionButtonsContainer}>
         {/* edit button */}
         <Pressable
           style={styles.deleteContainer}
-          onPress={() => setAddShowModal(true)}
+          onPress={() => setEditShowModal(true)}
         >
           <MaterialIcons name="edit" size={24} color={colors.font} />
         </Pressable>
@@ -77,14 +77,14 @@ const FoodDishVendor = (props) => {
       </View>
 
       {/* edit food dish modal */}
-      <Modal visible={showAddModal} animationType="slide">
+      <Modal visible={showEditModal} animationType="slide">
         <SafeAreaView>
           {/* close button */}
           <Pressable
             onPress={() => {
               setNewDishName(dishName);
               setNewPrice(price);
-              setAddShowModal(false);
+              setEditShowModal(false);
             }}
           >
             <Entypo
@@ -112,7 +112,7 @@ const FoodDishVendor = (props) => {
           <View style={styles.buttonContainer}>
             <CustomButton
               buttonText="cancel"
-              onPressFunction={() => setAddShowModal(false)}
+              onPressFunction={() => setEditShowModal(false)}
             />
             <CustomButton buttonText="edit" onPressFunction={editFoodDish} />
           </View>
@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 18,
     fontWeight: "600",
+    minWidth: 50,
   },
   actionButtonsContainer: {
     flexDirection: "row",

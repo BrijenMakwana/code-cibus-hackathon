@@ -20,8 +20,7 @@ const OnboardingScreen = () => {
       id: "1",
       title: "Create Food Menu",
       image: require("../assets/images/create_menu.png"),
-      subtitle:
-        "Vendors can create food menu by adding dishes names and their prices",
+      subtitle: "Vendors can create food menu by adding dish names and prices",
     },
     {
       id: "2",
@@ -51,9 +50,7 @@ const OnboardingScreen = () => {
   const storeIsFirstTime = async () => {
     try {
       await AsyncStorage.setItem("first_time", "yes");
-    } catch (e) {
-      // saving error
-    }
+    } catch (e) {}
   };
 
   // check if first time from local storage
@@ -66,9 +63,7 @@ const OnboardingScreen = () => {
           routes: [{ name: "Home" }],
         });
       }
-    } catch (e) {
-      // error reading value
-    }
+    } catch (e) {}
   };
 
   const next = () => {
