@@ -13,6 +13,7 @@ import { auth, signOut } from "./firebase/index";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "./constants/colors";
 import OnboardingScreen from "./screens/OnboardingScreen";
+import ForgetPasswordScreen from "./screens/ForgetPasswordScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -72,6 +73,11 @@ export default function App() {
         <Stack.Screen
           name="VendorSignIn"
           component={VendorSignInScreen}
+          options={{ title: null }}
+        />
+        <Stack.Screen
+          name="ForgetPassword"
+          component={ForgetPasswordScreen}
           options={{ title: null }}
         />
         <Stack.Screen

@@ -83,6 +83,11 @@ const VendorSignInScreen = () => {
     navigation.navigate("VendorSignUp");
   };
 
+  // go to forget password screen
+  const goToForgetPasswordScreen = () => {
+    navigation.navigate("ForgetPassword");
+  };
+
   // store user in local storage
   const storeUser = async (user) => {
     try {
@@ -112,6 +117,14 @@ const VendorSignInScreen = () => {
         isSecure={true}
       />
 
+      {/*  forget password */}
+      <Pressable
+        onPress={goToForgetPasswordScreen}
+        style={styles.forgetPasswordContainer}
+      >
+        <Text style={styles.forgetPassword}>forget password</Text>
+      </Pressable>
+
       {/* sign in */}
       {isLoading ? (
         <ActivityIndicator size="small" color={colors.primary} />
@@ -140,6 +153,17 @@ const styles = StyleSheet.create({
     height: 150,
     width: 320,
   },
+  forgetPasswordContainer: {
+    marginVertical: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  forgetPassword: {
+    fontSize: 15,
+    fontWeight: "500",
+    color: "#F96666",
+  },
+
   newACContainer: {
     marginTop: 10,
     justifyContent: "center",

@@ -15,6 +15,7 @@ import {
   signOut,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
 // Your web app's Firebase configuration
@@ -48,4 +49,5 @@ export {
   signOut,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
 };

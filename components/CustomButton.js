@@ -20,7 +20,7 @@ export default CustomButton;
 const styles = StyleSheet.create({
   btnContainer: {
     backgroundColor: colors.secondary,
-    width: 150,
+    minWidth: 150,
     padding: 10,
     justifyContent: "center",
     alignItems: "center",
