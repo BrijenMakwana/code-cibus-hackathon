@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import color from "../constants/colors";
 import colors from "../constants/colors";
 
 const FoodDishConsumer = (props) => {

@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Pressable } from "react-native";
+import { StyleSheet, Pressable, LogBox } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import MenuScreen from "./screens/MenuScreen";
 import VendorDashboardScreen from "./screens/VendorDashboardScreen";
@@ -41,6 +41,10 @@ export default function App() {
       // remove error
     }
   };
+
+  LogBox.ignoreLogs([
+    "AsyncStorage has been extracted from react-native core and will be removed in a future release. It can now be installed and imported from '@react-native-async-storage/async-storage' instead of 'react-native'. See https://github.com/react-native-async-storage/async-storage",
+  ]);
 
   return (
     <NavigationContainer>

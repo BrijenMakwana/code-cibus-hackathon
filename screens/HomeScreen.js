@@ -93,10 +93,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 15,
     color: colors.secondary,
+    fontStyle: "italic",
   },
   btnContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
+    alignItems: "center",
     marginTop: 55,
     width: "100%",
   },

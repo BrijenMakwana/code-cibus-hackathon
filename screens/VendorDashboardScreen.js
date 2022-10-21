@@ -79,7 +79,7 @@ const VendorDashboardScreen = () => {
       console.log(status, "status");
       if (status === "granted") {
         const asset = await MediaLibrary.createAssetAsync(uri);
-        MediaLibrary.createAlbumAsync("Cibus", asset)
+        MediaLibrary.createAlbumAsync("Foodora", asset)
           .then(() => {
             console.log("Album created!");
             Alert.alert(
