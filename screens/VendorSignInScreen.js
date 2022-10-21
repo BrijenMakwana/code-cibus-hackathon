@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -17,6 +18,7 @@ import CustomInput from "../components/CustomInput";
 const VendorSignInScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
 
   // check if valid email or not
@@ -34,11 +36,12 @@ const VendorSignInScreen = () => {
       Alert.alert("Missing fields", "please enter all the fields");
     } else {
       if (validateEmail(email)) {
+        setIsLoading(true);
         signInWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
-
+            setIsLoading(false);
             if (user) {
               if (user.emailVerified) {
                 navigation.reset({
@@ -58,7 +61,7 @@ const VendorSignInScreen = () => {
           })
           .catch((error) => {
             const errorCode = error.code;
-
+            setIsLoading(false);
             if (
               errorCode === "auth/wrong-password" ||
               errorCode === "auth/user-not-found"
@@ -109,8 +112,12 @@ const VendorSignInScreen = () => {
         isSecure={true}
       />
 
-      {/* sign in button */}
-      <CustomButton buttonText="login" onPressFunction={signIn} />
+      {/* sign in */}
+      {isLoading ? (
+        <ActivityIndicator size="small" color={colors.primary} />
+      ) : (
+        <CustomButton buttonText="login" onPressFunction={signIn} />
+      )}
 
       {/* new account */}
       <Pressable onPress={goToSignUpScreen} style={styles.newACContainer}>

@@ -1,4 +1,10 @@
-import { StyleSheet, SafeAreaView, Image, Alert } from "react-native";
+import {
+  StyleSheet,
+  SafeAreaView,
+  Image,
+  Alert,
+  ActivityIndicator,
+} from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -14,6 +20,7 @@ import CustomInput from "../components/CustomInput";
 const VendorSignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
 
   // check if valid email or not
@@ -30,6 +37,7 @@ const VendorSignUpScreen = () => {
       Alert.alert("Missing fields", "please enter all the fields");
     } else {
       if (validateEmail(email)) {
+        setIsLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             // Signed in
@@ -45,6 +53,7 @@ const VendorSignUpScreen = () => {
                 signOut(auth)
                   .then(() => {
                     // Sign-out successful.
+                    setIsLoading(false);
                     navigation.goBack();
                   })
                   .catch((error) => {});
@@ -54,7 +63,7 @@ const VendorSignUpScreen = () => {
           })
           .catch((error) => {
             const errorCode = error.code;
-
+            setIsLoading(false);
             if (errorCode === "auth/weak-password") {
               Alert.alert(
                 "Weak Password",
@@ -95,7 +104,11 @@ const VendorSignUpScreen = () => {
       />
 
       {/* sign up */}
-      <CustomButton buttonText="register" onPressFunction={signUp} />
+      {isLoading ? (
+        <ActivityIndicator size="small" color={colors.primary} />
+      ) : (
+        <CustomButton buttonText="register" onPressFunction={signUp} />
+      )}
     </SafeAreaView>
   );
 };
