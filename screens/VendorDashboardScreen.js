@@ -53,7 +53,7 @@ const VendorDashboardScreen = () => {
           setAddShowModal(false);
           setIsloading(false);
           if (Platform.OS === "android") {
-            ToastAndroid.show(`${dishName} is added`, ToastAndroid.SHORT);
+            ToastAndroid.show(`${dishName} is added 🥙`, ToastAndroid.SHORT);
           }
           getMenu();
           setDishName("");

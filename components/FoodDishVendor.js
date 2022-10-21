@@ -26,7 +26,7 @@ const FoodDishVendor = (props) => {
   // delete food dish
   const deleteFoodDish = async () => {
     if (Platform.OS === "android") {
-      ToastAndroid.show(`${dishName} is deleted`, ToastAndroid.SHORT);
+      ToastAndroid.show(`${dishName} is deleted 🥙`, ToastAndroid.SHORT);
     }
     await deleteDoc(doc(db, colectionName, id));
     getMenu();
