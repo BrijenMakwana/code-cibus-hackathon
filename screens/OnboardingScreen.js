@@ -18,21 +18,21 @@ const OnboardingScreen = () => {
   const boardingArray = [
     {
       id: "1",
-      title: "Create Food Menu",
+      title: "Create a Food Menu",
       image: require("../assets/images/create_menu.png"),
       subtitle:
         "Vendors can create a food menu by adding dish names and prices.",
     },
     {
       id: "2",
-      title: "Generate QR Code",
+      title: "Create a QR Code",
       image: require("../assets/images/generate_qr.png"),
       subtitle:
         "The app will generate a unique QR code for vendors, which can be downloaded.",
     },
     {
       id: "3",
-      title: "Scan the QR code to get menu",
+      title: "Scan the QR code to get the menu",
       image: require("../assets/images/scan_app.png"),
       subtitle:
         "Foodies can scan the QR code using this app and the menu will be displayed in the app.",
