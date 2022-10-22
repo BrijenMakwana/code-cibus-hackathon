@@ -19,7 +19,7 @@ const FoodDishConsumer = (props) => {
       <Text style={styles.dishName}>{dishName}</Text>
 
       {/* price */}
-      <Text style={styles.price}>Rs.{price}</Text>
+      <Text style={styles.price}>Rs. {price}</Text>
     </Pressable>
   );
 };

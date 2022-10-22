@@ -42,8 +42,11 @@ const MenuScreen = () => {
           source={require("../assets/images/menu.png")}
           style={styles.headingImage}
         />
+        {/* total dishes */}
         <Text style={styles.totalDishes}>({foodMenu.length})</Text>
       </View>
+      {/* instruction to press on dish */}
+      <Text style={styles.instruction}>Press on any dish to learn more.</Text>
       <View style={styles.listContainer}>
         {foodMenu.length > 0 ? (
           <FlatList
@@ -88,6 +91,13 @@ const styles = StyleSheet.create({
     color: colors.secondary,
     marginLeft: 10,
     fontWeight: "600",
+  },
+  instruction: {
+    color: colors.font,
+    fontWeight: "500",
+    fontSize: 16,
+    marginLeft: 20,
+    marginBottom: 10,
   },
   listContainer: {
     borderTopLeftRadius: 30,
