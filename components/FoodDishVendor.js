@@ -22,14 +22,19 @@ const FoodDishVendor = (props) => {
   const [newDishName, setNewDishName] = useState(dishName);
   const [newPrice, setNewPrice] = useState(price);
   const [isLoading, setIsloading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   // delete food dish
   const deleteFoodDish = async () => {
+    setIsDeleting(true);
+
+    await deleteDoc(doc(db, colectionName, id));
+
     if (Platform.OS === "android") {
       ToastAndroid.show(`${dishName} is deleted 🥙`, ToastAndroid.SHORT);
     }
-    await deleteDoc(doc(db, colectionName, id));
     getMenu();
+    // setIsDeleting(false);
   };
 
   // edit food dish
@@ -67,18 +72,23 @@ const FoodDishVendor = (props) => {
       </View>
 
       <View style={styles.actionButtonsContainer}>
-        {/* edit button */}
-        <Pressable
-          style={styles.deleteContainer}
-          onPress={() => setEditShowModal(true)}
-        >
-          <MaterialIcons name="edit" size={24} color={colors.font} />
-        </Pressable>
-
-        {/* delete button */}
-        <Pressable style={styles.deleteContainer} onPress={deleteFoodDish}>
-          <MaterialIcons name="delete" size={27} color={colors.secondary} />
-        </Pressable>
+        {isDeleting ? (
+          <ActivityIndicator size="small" color="#FF1E00" />
+        ) : (
+          <>
+            {/* edit */}
+            <Pressable
+              style={styles.deleteContainer}
+              onPress={() => setEditShowModal(true)}
+            >
+              <MaterialIcons name="edit" size={24} color={colors.font} />
+            </Pressable>
+            {/* delete */}
+            <Pressable style={styles.deleteContainer} onPress={deleteFoodDish}>
+              <MaterialIcons name="delete" size={27} color={colors.secondary} />
+            </Pressable>
+          </>
+        )}
       </View>
 
       {/* edit food dish modal */}
@@ -175,9 +185,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderTopRightRadius: 15,
     borderBottomRightRadius: 15,
+    justifyContent: "center",
+    width: 100,
   },
   deleteContainer: {
-    height: 50,
+    height: 60,
     width: 40,
     justifyContent: "center",
     alignItems: "center",

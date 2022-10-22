@@ -170,7 +170,7 @@ const VendorDashboardScreen = () => {
             onPress={() => setShowQRModal(true)}
           >
             <AntDesign name="qrcode" size={30} color={colors.font} />
-            <Text style={styles.qrButtonText}>generate QR code</Text>
+            <Text style={styles.qrButtonText}>Get QR Code</Text>
           </Pressable>
         )}
       </View>
@@ -333,7 +333,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: colors.secondary,
-    width: 200,
     padding: 10,
     borderRadius: 10,
     position: "absolute",
@@ -344,6 +343,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 10,
     color: colors.font,
+    fontWeight: "500",
   },
   addModal: {
     backgroundColor: colors.background,
