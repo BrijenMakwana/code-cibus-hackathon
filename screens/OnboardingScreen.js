@@ -20,21 +20,22 @@ const OnboardingScreen = () => {
       id: "1",
       title: "Create Food Menu",
       image: require("../assets/images/create_menu.png"),
-      subtitle: "Vendors can create food menu by adding dish names and prices",
+      subtitle:
+        "Vendors can create a food menu by adding dish names and prices.",
     },
     {
       id: "2",
       title: "Generate QR Code",
       image: require("../assets/images/generate_qr.png"),
       subtitle:
-        "App will generate a unique QR code for vendors which can be downloaded",
+        "The app will generate a unique QR code for vendors, which can be downloaded.",
     },
     {
       id: "3",
       title: "Scan the QR code to get menu",
       image: require("../assets/images/scan_app.png"),
       subtitle:
-        "Foodies can scan the QR code using this app and menu will be displayed in the app",
+        "Foodies can scan the QR code using this app and the menu will be displayed in the app.",
     },
   ];
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
