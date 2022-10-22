@@ -179,7 +179,13 @@ const VendorDashboardScreen = () => {
       <Modal visible={showAddModal} animationType="slide">
         <SafeAreaView style={styles.addModal}>
           {/* close button */}
-          <Pressable onPress={() => setAddShowModal(false)}>
+          <Pressable
+            onPress={() => {
+              setDishName("");
+              setPrice(0);
+              setAddShowModal(false);
+            }}
+          >
             <Entypo
               name="circle-with-cross"
               size={30}
@@ -199,6 +205,7 @@ const VendorDashboardScreen = () => {
             inputValue={price}
             onChangeFunction={setPrice}
             isNumericKeyboard={true}
+            onSubmitFunction={addFoodDish}
           />
 
           {isLoading ? (
@@ -209,7 +216,11 @@ const VendorDashboardScreen = () => {
               {/* cancel */}
               <CustomButton
                 buttonText="cancel"
-                onPressFunction={() => setAddShowModal(false)}
+                onPressFunction={() => {
+                  setDishName("");
+                  setPrice(0);
+                  setAddShowModal(false);
+                }}
               />
               {/* add */}
               <CustomButton buttonText="add" onPressFunction={addFoodDish} />

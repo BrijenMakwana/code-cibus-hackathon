@@ -93,7 +93,7 @@ const FoodDishVendor = (props) => {
 
       {/* edit food dish modal */}
       <Modal visible={showEditModal} animationType="slide">
-        <SafeAreaView>
+        <SafeAreaView style={styles.editModal}>
           {/* close button */}
           <Pressable
             onPress={() => {
@@ -112,15 +112,16 @@ const FoodDishVendor = (props) => {
 
           {/* inputs */}
           <CustomInput
-            placeholderText="dish name"
+            placeholderText="Dish Name"
             inputValue={newDishName}
             onChangeFunction={setNewDishName}
           />
           <CustomInput
-            placeholderText="price"
+            placeholderText="Price"
             inputValue={newPrice}
             onChangeFunction={setNewPrice}
             isNumericKeyboard={true}
+            onSubmitFunction={editFoodDish}
           />
 
           {/* buttons */}
@@ -194,6 +195,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginLeft: 10,
+  },
+  editModal: {
+    backgroundColor: colors.background,
+    flex: 1,
   },
   input: {
     width: "90%",
