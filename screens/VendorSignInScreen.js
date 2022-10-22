@@ -162,6 +162,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "500",
     color: "#F96666",
+    textTransform: "capitalize",
   },
 
   newACContainer: {
@@ -173,5 +174,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "500",
     color: colors.primary,
+    textTransform: "capitalize",
   },
 });

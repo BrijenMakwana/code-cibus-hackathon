@@ -1,4 +1,4 @@
-import { StyleSheet, Pressable, LogBox } from "react-native";
+import { StyleSheet, Pressable, LogBox, Text } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import MenuScreen from "./screens/MenuScreen";
 import VendorDashboardScreen from "./screens/VendorDashboardScreen";
@@ -92,7 +92,20 @@ export default function App() {
             title: null,
             headerShadowVisible: false,
             headerRight: () => (
-              <Pressable onPress={() => signOutUser(navigation)}>
+              <Pressable
+                onPress={() => signOutUser(navigation)}
+                style={{ flexDirection: "row", alignItems: "center" }}
+              >
+                <Text
+                  style={{
+                    color: colors.font,
+                    fontSize: 16,
+                    textTransform: "capitalize",
+                    marginRight: 10,
+                  }}
+                >
+                  logout
+                </Text>
                 <MaterialIcons name="logout" size={24} color={colors.font} />
               </Pressable>
             ),
