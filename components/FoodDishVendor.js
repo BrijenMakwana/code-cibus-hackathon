@@ -68,7 +68,7 @@ const FoodDishVendor = (props) => {
         {/* dish name */}
         <Text style={styles.dishName}>{dishName}</Text>
         {/* price */}
-        <Text style={styles.price}>${price}</Text>
+        <Text style={styles.price}>Rs.{price}</Text>
       </View>
 
       <View style={styles.actionButtonsContainer}>

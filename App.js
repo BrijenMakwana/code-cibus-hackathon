@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Pressable, LogBox } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import MenuScreen from "./screens/MenuScreen";
@@ -34,7 +33,7 @@ export default function App() {
       });
   };
 
-  // remove user fro local storage
+  // remove user from local storage
   const removeUserFromLocalStorage = async () => {
     try {
       await AsyncStorage.removeItem("logged_in_user");

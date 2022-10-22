@@ -75,6 +75,7 @@ const ForgetPasswordScreen = () => {
         placeholderText="Email"
         inputValue={email}
         onChangeFunction={setEmail}
+        onSubmitFunction={resetPassword}
       />
 
       {/* sign in */}
