@@ -13,6 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "./constants/colors";
 import OnboardingScreen from "./screens/OnboardingScreen";
 import ForgetPasswordScreen from "./screens/ForgetPasswordScreen";
+import DishSearchScreen from "./screens/DishSearchScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -53,7 +54,7 @@ export default function App() {
           headerStyle: {
             backgroundColor: colors.primary,
           },
-          headerTintColor: "#000",
+          headerTintColor: colors.font,
           headerTitleStyle: {
             fontWeight: "bold",
           },
@@ -121,6 +122,13 @@ export default function App() {
               </Pressable>
             ),
           })}
+        />
+        <Stack.Screen
+          name="DishSearch"
+          component={DishSearchScreen}
+          options={{
+            title: null,
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

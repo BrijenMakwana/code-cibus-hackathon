@@ -1,17 +1,26 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 import React from "react";
 import colors from "../constants/colors";
+import { useNavigation } from "@react-navigation/native";
 
 const FoodDishConsumer = (props) => {
   const { dishName, price } = props;
+  const navigation = useNavigation();
+
+  const goToDishSearch = () => {
+    navigation.navigate("DishSearch", {
+      dishName: dishName,
+    });
+  };
+
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={goToDishSearch}>
       {/* dish name */}
       <Text style={styles.dishName}>{dishName}</Text>
 
       {/* price */}
       <Text style={styles.price}>Rs.{price}</Text>
-    </View>
+    </Pressable>
   );
 };
 

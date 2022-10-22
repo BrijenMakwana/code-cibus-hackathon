@@ -25,7 +25,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const VendorDashboardScreen = () => {
   const [foodMenu, setFoodMenu] = useState([]);
-  const [colectionName, setCollectionName] = useState(auth.currentUser.email);
+  const [colectionName, setCollectionName] = useState(auth?.currentUser?.email);
   const [dishName, setDishName] = useState("");
   const [isLoading, setIsloading] = useState(false);
   const [price, setPrice] = useState(0);
@@ -107,7 +107,10 @@ const VendorDashboardScreen = () => {
 
   // get menu(if any) when user open dashboard first time
   useEffect(() => {
-    getMenu();
+    if (colectionName) {
+      getMenu();
+    }
+
     // set email of the vendor in header bar
     navigation.setOptions({
       headerLeft: () => (
