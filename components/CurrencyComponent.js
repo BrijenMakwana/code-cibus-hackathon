@@ -11,8 +11,8 @@ const CurrencyComponent = (props) => {
   const changeCurrency = () => {
     if (totalDishes > 0) {
       Alert.alert(
-        "Attension",
-        "Menu is not empty, please delete every dishes to change the currency"
+        "Warning⚠️",
+        "The menu is not empty. Please delete every dish to change the currency."
       );
     } else {
       setCurrency(symbol);
