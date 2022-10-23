@@ -361,19 +361,22 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   totalDishes: {
-    fontSize: 40,
+    fontSize: 35,
     color: colors.secondary,
     marginLeft: 10,
     fontWeight: "600",
+    minWidth: 50,
   },
   currencyChanege: {
-    marginLeft: 15,
+    marginLeft: 5,
     justifyContent: "center",
     alignItems: "center",
     padding: 5,
+    paddingHorizontal: 10,
+    minWidth: 50,
   },
   currency: {
-    fontSize: 35,
+    fontSize: 27,
     color: colors.font,
   },
   listContainer: {
