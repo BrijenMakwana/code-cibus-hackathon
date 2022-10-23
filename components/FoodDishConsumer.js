@@ -4,7 +4,7 @@ import colors from "../constants/colors";
 import { useNavigation } from "@react-navigation/native";
 
 const FoodDishConsumer = (props) => {
-  const { dishName, price } = props;
+  const { dishName, price, currency } = props;
   const navigation = useNavigation();
 
   const goToDishSearch = () => {
@@ -19,7 +19,9 @@ const FoodDishConsumer = (props) => {
       <Text style={styles.dishName}>{dishName}</Text>
 
       {/* price */}
-      <Text style={styles.price}>Rs. {price}</Text>
+      <Text style={styles.price}>
+        {currency} {price}
+      </Text>
     </Pressable>
   );
 };

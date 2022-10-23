@@ -17,7 +17,8 @@ import CustomInput from "./CustomInput";
 import CustomButton from "./CustomButton";
 
 const FoodDishVendor = (props) => {
-  const { id, dishName, price, colectionName, getMenu } = props;
+  const { id, dishName, price, colectionName, currency, getMenu } = props;
+
   const [showEditModal, setEditShowModal] = useState(false);
   const [newDishName, setNewDishName] = useState(dishName);
   const [newPrice, setNewPrice] = useState(price);
@@ -68,7 +69,9 @@ const FoodDishVendor = (props) => {
         {/* dish name */}
         <Text style={styles.dishName}>{dishName}</Text>
         {/* price */}
-        <Text style={styles.price}>Rs.{price}</Text>
+        <Text style={styles.price}>
+          {currency} {price}
+        </Text>
       </View>
 
       <View style={styles.actionButtonsContainer}>
@@ -153,7 +156,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#fff",
+    backgroundColor: colors.background,
     shadowColor: "#000",
     shadowOpacity: 0.2,
     elevation: 3,

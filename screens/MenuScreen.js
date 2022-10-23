@@ -52,7 +52,11 @@ const MenuScreen = () => {
           <FlatList
             data={foodMenu}
             renderItem={({ item }) => (
-              <FoodDishConsumer dishName={item.dishName} price={item.price} />
+              <FoodDishConsumer
+                dishName={item.dishName}
+                price={item.price}
+                currency={item.currency}
+              />
             )}
             keyExtractor={(item) => item.id}
           />

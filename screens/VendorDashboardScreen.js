@@ -13,7 +13,13 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useState, useRef } from "react";
-import { AntDesign, Entypo, Ionicons, Feather } from "@expo/vector-icons";
+import {
+  AntDesign,
+  Entypo,
+  Ionicons,
+  Feather,
+  Fontisto,
+} from "@expo/vector-icons";
 import FoodDishVendor from "../components/FoodDishVendor";
 import ViewShot from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
@@ -22,6 +28,8 @@ import colors from "../constants/colors";
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
+import CurrencyComponent from "../components/CurrencyComponent";
+import { CurrencyData } from "../assets/CurrencyData";
 
 const VendorDashboardScreen = () => {
   const [foodMenu, setFoodMenu] = useState([]);
@@ -29,6 +37,7 @@ const VendorDashboardScreen = () => {
   const [dishName, setDishName] = useState("");
   const [isLoading, setIsloading] = useState(false);
   const [price, setPrice] = useState(0);
+  const [currency, setCurrency] = useState("₹");
 
   const ref = useRef();
 
@@ -36,6 +45,7 @@ const VendorDashboardScreen = () => {
 
   const [showAddModal, setAddShowModal] = useState(false);
   const [showQRModal, setShowQRModal] = useState(false);
+  const [showCurrencyModal, setShowCurrencyModal] = useState(false);
 
   // add food dish to menu
   const addFoodDish = async () => {
@@ -49,6 +59,7 @@ const VendorDashboardScreen = () => {
           await addDoc(collection(db, colectionName), {
             dishName: dishName,
             price: price,
+            currency: currency,
           });
           setAddShowModal(false);
           setIsloading(false);
@@ -123,14 +134,23 @@ const VendorDashboardScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* heading */}
+      {/* header */}
       <View style={styles.header}>
         {/* heading image */}
         <Image
           source={require("../assets/images/menu.png")}
           style={styles.headingImage}
         />
+        {/* total dishes */}
         <Text style={styles.totalDishes}>({foodMenu.length})</Text>
+        {/* currency */}
+        <Pressable
+          style={styles.currencyChanege}
+          onPress={() => setShowCurrencyModal(true)}
+        >
+          {/* <Fontisto name="money-symbol" size={30} color={colors.font} /> */}
+          <Text style={styles.currency}>{currency}</Text>
+        </Pressable>
       </View>
       <View style={styles.listContainer}>
         {/* list of food dishes */}
@@ -144,6 +164,7 @@ const VendorDashboardScreen = () => {
                 price={item.price}
                 id={item.id}
                 getMenu={getMenu}
+                currency={item.currency}
               />
             )}
             keyExtractor={(item) => item.id}
@@ -280,6 +301,42 @@ const VendorDashboardScreen = () => {
           />
         </SafeAreaView>
       </Modal>
+
+      {/* currency modal */}
+      <Modal visible={showCurrencyModal} animationType="slide">
+        <SafeAreaView style={styles.currencyModal}>
+          {/* close button */}
+          <Pressable
+            onPress={() => {
+              setShowCurrencyModal(false);
+            }}
+          >
+            <Entypo
+              name="circle-with-cross"
+              size={30}
+              color={colors.secondary}
+              style={styles.close}
+            />
+          </Pressable>
+
+          {/* currency list */}
+          <FlatList
+            data={CurrencyData}
+            renderItem={({ item }) => (
+              <CurrencyComponent
+                code={item.code}
+                name={item.name}
+                symbol={item.symbol}
+                setCurrency={setCurrency}
+                setShowCurrencyModal={setShowCurrencyModal}
+                totalDishes={foodMenu.length}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+          />
+        </SafeAreaView>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -293,9 +350,10 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: colors.primary,
-    paddingBottom: 20,
+    marginBottom: 20,
     flexDirection: "row",
     alignItems: "center",
+    marginTop: 5,
   },
   headingImage: {
     width: 230,
@@ -307,6 +365,16 @@ const styles = StyleSheet.create({
     color: colors.secondary,
     marginLeft: 10,
     fontWeight: "600",
+  },
+  currencyChanege: {
+    marginLeft: 15,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 5,
+  },
+  currency: {
+    fontSize: 35,
+    color: colors.font,
   },
   listContainer: {
     borderTopLeftRadius: 30,
@@ -398,5 +466,9 @@ const styles = StyleSheet.create({
     color: colors.secondary,
     fontWeight: "500",
     marginBottom: 20,
+  },
+  currencyModal: {
+    flex: 1,
+    backgroundColor: colors.background,
   },
 });
