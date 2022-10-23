@@ -286,14 +286,16 @@ const VendorDashboardScreen = () => {
             <ViewShot
               ref={ref}
               options={{
-                fileName: "Your-File-Name",
+                fileName: `Foodora_${colectionName}`,
                 format: "jpg",
-                quality: 0.9,
+                height: 1080,
+                width: 1080,
+                quality: 1,
               }}
             >
               <Image
                 source={{
-                  uri: `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${colectionName}`,
+                  uri: `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${colectionName}&color=00ABB3`,
                 }}
                 style={styles.qrImage}
               />
