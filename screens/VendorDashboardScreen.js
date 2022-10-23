@@ -30,6 +30,7 @@ import CustomButton from "../components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import CurrencyComponent from "../components/CurrencyComponent";
 import { CurrencyData } from "../assets/CurrencyData";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const VendorDashboardScreen = () => {
   const [foodMenu, setFoodMenu] = useState([]);
@@ -116,12 +117,22 @@ const VendorDashboardScreen = () => {
     }
   };
 
+  // get currency local storage
+  const getCurrency = async () => {
+    try {
+      const localCurrency = await AsyncStorage.getItem("local_currency");
+      if (localCurrency !== null) {
+        setCurrency(localCurrency);
+      }
+    } catch (e) {}
+  };
+
   // get menu(if any) when user open dashboard first time
   useEffect(() => {
     if (colectionName) {
       getMenu();
     }
-
+    getCurrency();
     // set email of the vendor in header bar
     navigation.setOptions({
       headerLeft: () => (

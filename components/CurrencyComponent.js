@@ -1,11 +1,13 @@
 import { Pressable, StyleSheet, Text, Alert } from "react-native";
 import React from "react";
 import colors from "../constants/colors";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CurrencyComponent = (props) => {
   const { code, name, symbol, setCurrency, setShowCurrencyModal, totalDishes } =
     props;
 
+  // change currency
   const changeCurrency = () => {
     if (totalDishes > 0) {
       Alert.alert(
@@ -14,9 +16,18 @@ const CurrencyComponent = (props) => {
       );
     } else {
       setCurrency(symbol);
+      storeCurrency(symbol);
       setShowCurrencyModal(false);
     }
   };
+
+  // store currency in local storage
+  const storeCurrency = async (symbol) => {
+    try {
+      await AsyncStorage.setItem("local_currency", symbol);
+    } catch (e) {}
+  };
+
   return (
     <Pressable style={styles.container} onPress={changeCurrency}>
       {/* code */}
