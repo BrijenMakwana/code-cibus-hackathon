@@ -39,6 +39,7 @@ const VendorDashboardScreen = () => {
   const [isLoading, setIsloading] = useState(false);
   const [price, setPrice] = useState(0);
   const [currency, setCurrency] = useState("₹");
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const ref = useRef();
 
@@ -127,6 +128,13 @@ const VendorDashboardScreen = () => {
     } catch (e) {}
   };
 
+  // pull to get menu
+  const pullToGetMenu = () => {
+    setIsRefreshing(true);
+    getMenu();
+    setTimeout(() => setIsRefreshing(false), 2000);
+  };
+
   // get menu(if any) when user open dashboard first time
   useEffect(() => {
     if (colectionName) {
@@ -179,6 +187,8 @@ const VendorDashboardScreen = () => {
               />
             )}
             keyExtractor={(item) => item.id}
+            refreshing={isRefreshing}
+            onRefresh={pullToGetMenu}
             ListFooterComponent={<View style={{ height: 100 }} />}
           />
         ) : (

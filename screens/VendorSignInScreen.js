@@ -117,14 +117,6 @@ const VendorSignInScreen = () => {
         isSecure={true}
       />
 
-      {/*  forget password */}
-      <Pressable
-        onPress={goToForgetPasswordScreen}
-        style={styles.forgetPasswordContainer}
-      >
-        <Text style={styles.forgetPassword}>forget password</Text>
-      </Pressable>
-
       {/* sign in */}
       {isLoading ? (
         <ActivityIndicator size="small" color={colors.primary} />
@@ -135,6 +127,14 @@ const VendorSignInScreen = () => {
       {/* new account */}
       <Pressable onPress={goToSignUpScreen} style={styles.newACContainer}>
         <Text style={styles.newAC}>create a new account</Text>
+      </Pressable>
+
+      {/*  forget password */}
+      <Pressable
+        onPress={goToForgetPasswordScreen}
+        style={styles.forgetPasswordContainer}
+      >
+        <Text style={styles.forgetPassword}>forget password</Text>
       </Pressable>
     </SafeAreaView>
   );
@@ -157,11 +157,12 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     justifyContent: "center",
     alignItems: "center",
+    padding: 10,
   },
   forgetPassword: {
     fontSize: 15,
     fontWeight: "500",
-    color: "#F96666",
+    color: colors.primary,
     textTransform: "capitalize",
   },
 
@@ -169,6 +170,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     justifyContent: "center",
     alignItems: "center",
+    padding: 10,
   },
   newAC: {
     fontSize: 15,
