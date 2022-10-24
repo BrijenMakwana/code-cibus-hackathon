@@ -47,9 +47,6 @@ Digital food menu vendors can create and get foodies to scan the QR code.
 - Vendors can add, update, and delete food items from the menu at any time and any number of times. And there is no need to generate the QR code again. The menu will automatically be updated, and consumers will always get an updated menu.
 - The experience becomes much more satisfying.
 
-
-
-
 ## Challenges I faced
 
 - I wanted to make this app user-friendly so that no one needs to explain to the vendors or the foodies what to do, so it took me 5 days to create a wireframe of the app that is easily understood.
@@ -65,3 +62,7 @@ Digital food menu vendors can create and get foodies to scan the QR code.
 - Javascript
 - React Navigation
 - Firbase
+
+## Screenshots
+
+![screenshot1](./assets/screenshots/foodora_all.png)
