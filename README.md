@@ -1,5 +1,5 @@
 
-![Logo](./assets/screenshots/foodora_all.png)
+![Logo](./assets/screenshots/foodora.png)
 
 
 # Foodora
