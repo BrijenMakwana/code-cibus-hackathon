@@ -65,4 +65,10 @@ Digital food menu vendors can create and get foodies to scan the QR code.
 
 ## Screenshots
 
-![screenshot1](./assets/screenshots/foodora_all.png)
+![screenshot1](./assets/screenshots/1_Onboarding%20Screen.png)
+![screenshot2](./assets/screenshots/2_food%20vendor.png)
+![screenshot3](./assets/screenshots/3_Menu%20Create.png)
+![screenshot4](./assets/screenshots/4_food%20menu%20changes.png)
+![screenshot5](./assets/screenshots/5_Download%20QR.png)
+![screenshot6](./assets/screenshots/6_Foodie.png)
+![screenshot7](./assets/screenshots/7_Learn%20more.png)
