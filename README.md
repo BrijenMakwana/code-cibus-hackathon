@@ -47,6 +47,15 @@ A digital food menu that vendors can create and get a QR code that can be scanne
 - Food items on the menu can be added, updated, and removed by vendors at any time and a limitless number of times. And the QR code does not need to be generated once more. Foodies will always receive the most recent version of the menu because it is updated automatically.
 - It becomes a lot more enjoyable experience.
 
+### Coding
+
+- I created the app's wireframe over the course of roughly five days using nothing but a marker and a whiteboard.
+- Then, using Notion, I made a plan that covered all the screens I had to make as well as all the unique parts and libraries I had to incorporate into my programme.
+- I made just enough styling on all the required screens to make the initial prototype.
+- I then discovered how to integrate scanning and QR code functionality into my programme. After testing it, I noted every bug that needed to be fixed.
+- I began using Firebase to code the backend after addressing all the bugs. Then I put my app's second prototype to the test.
+- Finally, I style my app to make it look appealing.
+
 ## Challenges I faced
 
 - It took me 5 days to develop a wireframe of the app that is simple to understand because I wanted to make this app user-friendly so that neither the vendors nor the foodies need to be told what to do.
