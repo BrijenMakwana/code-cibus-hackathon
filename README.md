@@ -63,6 +63,8 @@ A digital food menu that vendors can create and get a QR code that can be scanne
 - React Navigation
 - Firbase
 - goqr api
+- expo-media-library
+- expo-barcode-scanner
 
 ## Screenshots
 
