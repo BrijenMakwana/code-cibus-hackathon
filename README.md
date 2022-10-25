@@ -64,6 +64,19 @@ A digital food menu that vendors can create and get a QR code that can be scanne
 
 - The last difficulty was to tie everything together and produce a cohesive experience. Make a workflow for your app that runs well. I read my own code for hours while seated in my chair to optimise it.
 
+## Accomplishments that I'm proud of
+
+- The biggest achievement is that it has gone from being just an idea a few days ago to a reality that people can actually utilise.
+- Every feature I had in mind when I first started working on it was put into practise.
+- I was able to complete the app on my own and within the allotted time frame.
+- The finished product resolves a genuine issue.
+
+## What's next for Foodora
+
+- There are many features that may be added to Foodora, and we can offer options to customise the menu's appearance.
+- To make money from the app, we can add advertisements to the food menu.
+- To construct the menu, text-to-speech functionality can be added.
+- It may quickly become a startup by bringing on board all of the street food sellers and café owners.
 
 ## Built with
 
