@@ -39,12 +39,12 @@ Digital food menu vendors can create and get foodies to scan the QR code.
 - No matter how many menus a street vendor keeps, it will always be less than the number of consumers in the line.
 - After pandmic, it's not hygenic to touch food menus that have been touched by others before us.
 
-### After analising the problem statement, I came up with solutions
+### After analysing the problem statement, I came up with solutions
 
 - Food vendors can install the Foodora app on their smartphones. And they can add food items they want to their menu at their price.
 - After doing that, with just the press of a button, a QR code can be generated. They just need to print one copy of this QR code and keep it at their stall or restaurant.
 - Foodies then use the same app to scan this QR code and the menu will be presented on their screen.
-- Vendors can add, update, and delete food items from the menu at any time and any number of times. And there is no need to generate the QR code again. The menu will automatically be updated, and consumers will always get an updated menu.
+- Vendors can add, update, and delete food items from the menu at any time and any number of times. And there is no need to generate the QR code again. The menu will automatically be updated, and Foodies will always get an updated menu.
 - The experience becomes much more satisfying.
 
 ## Challenges I faced
@@ -53,7 +53,7 @@ Digital food menu vendors can create and get foodies to scan the QR code.
 
 - I'm a React native developer, so it was not difficult for me to start coding with it. But I hit my second road block when I started integrating the camera and media library api of the smartphone, as I had never worked with that before. After hours of reading documentation and stackoverflow answers, I was able to implement it in my app.
 
-- The final challenge was to bring everything together and create a unified experience. Create an app workflow that works seamlessly. I spent hours just sitting in my character and reading my own code to optimise it.
+- The final challenge was to bring everything together and create a unified experience. Create an app workflow that works seamlessly. I spent hours just sitting in my chair and reading my own code to optimise it.
 
 
 ## Built with
@@ -62,13 +62,14 @@ Digital food menu vendors can create and get foodies to scan the QR code.
 - Javascript
 - React Navigation
 - Firbase
+- goqr api
 
 ## Screenshots
 
-![screenshot1](./assets/screenshots/1_Onboarding%20Screen.png)
-![screenshot2](./assets/screenshots/2_food%20vendor.png)
-![screenshot3](./assets/screenshots/3_Menu%20Create.png)
-![screenshot4](./assets/screenshots/4_food%20menu%20changes.png)
-![screenshot5](./assets/screenshots/5_Download%20QR.png)
+![screenshot1](./assets/screenshots/1_Onboarding_Screen.png)
+![screenshot2](./assets/screenshots/2_food_vendor.png)
+![screenshot3](./assets/screenshots/3_Menu_Create.png)
+![screenshot4](./assets/screenshots/4_foodmenu_changes.png)
+![screenshot5](./assets/screenshots/5_Download_QR.png)
 ![screenshot6](./assets/screenshots/6_Foodie.png)
-![screenshot7](./assets/screenshots/7_Learn%20more.png)
+![screenshot7](./assets/screenshots/7_Learn_more.png)
