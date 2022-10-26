@@ -51,8 +51,9 @@ A digital food menu that vendors can create and get a QR code that can be scanne
 
 - I created the app's wireframe over the course of roughly five days using nothing but a marker and a whiteboard.
 - Then, using Notion, I made a plan that covered all the screens I had to make as well as all the unique parts and libraries I had to incorporate into my programme.
+- Using React Native and styled components, I started building all the screens.
 - I made just enough styling on all the required screens to make the initial prototype.
-- I then discovered how to integrate scanning and QR code functionality into my programme. After testing it, I noted every bug that needed to be fixed.
+- I then discovered how to integrate scanning and QR code functionality into my programme.I added scanning functionality to my app by using the expo-barcode-scanner library and the goqr api to produce QR codes. After testing it, I noted every bug that needed to be fixed.
 - I began using Firebase to code the backend after addressing all the bugs. Then I put my app's second prototype to the test.
 - Finally, I style my app to make it look appealing.
 
