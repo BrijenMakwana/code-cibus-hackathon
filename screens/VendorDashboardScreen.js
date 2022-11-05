@@ -305,7 +305,7 @@ const VendorDashboardScreen = () => {
             >
               <Image
                 source={{
-                  uri: `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${colectionName}&color=00ABB3`,
+                  uri: `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://foodora-web-menu.vercel.app/${colectionName}&color=00ABB3`,
                 }}
                 style={styles.qrImage}
               />
