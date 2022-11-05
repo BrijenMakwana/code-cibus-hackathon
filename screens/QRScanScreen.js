@@ -35,11 +35,12 @@ export default QRScanScreen = () => {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanData(data);
+    const collectionName = data.substring(36);
 
-    if (validateEmail(data)) {
+    if (validateEmail(collectionName)) {
       navigation.reset({
         index: 0,
-        routes: [{ name: "Menu", params: { collectionName: data } }],
+        routes: [{ name: "Menu", params: { collectionName: collectionName } }],
       });
     } else {
       Alert.alert("Not Foodora", "It's not a valid Foodora QR code", [
